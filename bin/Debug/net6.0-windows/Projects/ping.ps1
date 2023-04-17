@@ -1,3 +1,3 @@
 ping google.com
 ping bing.com
-sleep 1;
+sleep 2;

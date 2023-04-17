@@ -77,7 +77,7 @@ namespace ShellHolder
             if (e.Control && e.KeyCode == Keys.S) {
                 e.SuppressKeyPress = true;
                 if (!isSaved)
-                    SaveFile();
+                    FileUtils.SaveFile(currentProject, textBox.Text);
             }
         }
 
@@ -99,7 +99,7 @@ namespace ShellHolder
             SaveButtonEnable(true);
         }
 
-        private void SaveButtonEnable(bool enable) {
+        public void SaveButtonEnable(bool enable) {
             saveButton.Enabled = enable;
             saveButton.NotificationIcon = enable;
             isSaved = !enable;
@@ -117,7 +117,7 @@ namespace ShellHolder
                 DialogResult dialogResult = MessageBox.Show("Save changes to your project?", "", MessageBoxButtons.YesNoCancel);
                 if (dialogResult == DialogResult.Yes) {
                     /// Save currently loaded file.
-                    SaveFile();
+                    FileUtils.SaveFile(currentProject, textBox.Text);
                 }
                 else if (dialogResult == DialogResult.No) {
                     /// Do nothing, dont save file just continue.
@@ -215,28 +215,7 @@ namespace ShellHolder
             if (currentProject == null)
                 return;
 
-            SaveFile();
-        }
-
-        private bool SaveFile() {
-
-            try {
-                if (currentProject == null)
-                    return false;
-
-                currentProject.fileStream.SetLength(0);
-                using (StreamWriter sr = new StreamWriter(currentProject.fileStream, leaveOpen: true)) {
-                    sr.Write(textBox.Text);
-                    sr.Close();
-                }
-            }
-            catch (Exception ex) {
-                ProjectUtil.ExceptionMessageBox(ex, currentProject.displayName);
-                return false;
-            }
-
-            SaveButtonEnable(false);
-            return true;
+            FileUtils.SaveFile(currentProject, textBox.Text);
         }
 
         /// 
@@ -278,6 +257,8 @@ namespace ShellHolder
 
             PSDataCollection<PSObject> output = new PSDataCollection<PSObject>();
             output.DataAdded += (sender, e) => {
+                if (sender == null || worker == null) return;
+
                 PSObject newRecord = ((PSDataCollection<PSObject>)sender)[e.Index];
                 string recordString = newRecord.ToString();
                 worker.ReportProgress(0, recordString);
@@ -285,6 +266,9 @@ namespace ShellHolder
 
             var res = runspace.BeginInvoke<PSObject, PSObject>(null, output);
             while (runspace.InvocationStateInfo.State == PSInvocationState.Running) {
+
+                if (worker == null) return;
+
                 if (worker.CancellationPending) {
                     e.Cancel = true;
                     return;

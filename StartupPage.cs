@@ -80,6 +80,7 @@ namespace ShellHolder
 
         private void ImportButton_DragEnter(object sender, DragEventArgs e) {
 
+            /// Validate file that is entering import button boundary.
             if (e.Data == null)
                 return;
 
@@ -98,67 +99,17 @@ namespace ShellHolder
                 return;
             }
 
-            ImportAFile(filePaths);
-        }
-
-        private void ImportAFile(string[] filePaths) {
-            foreach (string filename in filePaths) {
-                if (Path.GetExtension(filename) != FileUtils.Extension) {
-                    MessageBox.Show("One or more of your files is not a valid powershell file (.ps1)");
-                    return;
-                }
-            }
-
-            int filesImported = 0; /// Counts the amount of files that were correctly imported.
-            int filesRenamed = 0; /// Counts the amount of files that had to be renamed because of duplication problems.
-            foreach (string file in filePaths) {
-                try {
-
-                    string content = "";
-
-                    /// Open and read imported file, copy all of its content to string.
-                    FileStream fileStream = File.Open(file, FileMode.Open, FileAccess.Read);
-                    using (StreamReader reader = new StreamReader(fileStream)) {
-                        content = reader.ReadToEnd();
-                        reader.Close();
-                    }
-                    
-                    /// Generate a new filename for the upcoming project, insure no duplicate names by counting upwards.
-                    string filename = Path.GetFileNameWithoutExtension(file);
-                    string filePath = Path.Combine(FileUtils.GetSavedProjectsDirectory(), Path.GetFileName(filename) + FileUtils.Extension);
-                    int count = 0;
-                    while (File.Exists(filePath)) {
-                        count++;
-                        filePath = Path.Combine(FileUtils.GetSavedProjectsDirectory(), (Path.GetFileNameWithoutExtension(filename) + count + FileUtils.Extension));
-                    }
-
-                    /// Create new file at designated projects folder and write imported file content to it.
-                    FileStream newFileStream = File.Create(filePath);
-                    using (StreamWriter writer = new StreamWriter(newFileStream)) {
-                        writer.Write(content);
-                        writer.Close();
-                    }
-
-                    /// Stat tracking at last to ensure correct.
-                    if (count > 0)
-                        filesRenamed++;
-                    filesImported++;
-
-                } catch (Exception e) {
-                    MessageBox.Show(
-                        "An error occured while importing '" + Path.GetFileName(file) + "'" + Environment.NewLine + Environment.NewLine +
-                        e.Message + Environment.NewLine +
-                        e.StackTrace + Environment.NewLine);
-                }
-            }
-
+            FileUtils.ImportAFile(filePaths);
 
             FillRecentProjectsButtons(FileUtils.RetrieveRecentProjects());
-
-            MessageBox.Show(String.Format(
-                    "Successfully imported {0}/{1} projects.", filesImported, filePaths.Length) +
-                    (filesRenamed > 0 ? Environment.NewLine + String.Format("Had to rename {0} files to avoid duplication.", filesRenamed) : ""));
         }
+
+
+        private void RefreshButton_Click(object sender, EventArgs e) {
+
+            FillRecentProjectsButtons(FileUtils.RetrieveRecentProjects());
+        }
+
 
         public void ShowPage(bool show) {
             if (show) {
@@ -172,16 +123,12 @@ namespace ShellHolder
             }
         }
 
+
         public void FillRecentProjectsButtons(List<Project> projects) {
             RecentProjectsLayout.Controls.Clear();
             foreach (Project project in projects) {
                 RecentProjectsLayout.Controls.Add(new RecentProjectButton(project));
             }
-        }
-
-        private void RefreshButton_Click(object sender, EventArgs e) {
-
-            FillRecentProjectsButtons(FileUtils.RetrieveRecentProjects());
         }
     }
 }

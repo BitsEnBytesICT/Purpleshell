@@ -36,9 +36,9 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.consoleBox = new System.Windows.Forms.TextBox();
             this.startScriptButton = new ShellHolder.Controls.CustomButton();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.quickButtonLayout1 = new System.Windows.Forms.TableLayoutPanel();
             this.stopScriptButton = new ShellHolder.Controls.CustomButton();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.quickButtonLayout2 = new System.Windows.Forms.TableLayoutPanel();
             this.saveButton = new ShellHolder.Controls.CustomButton();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textBox)).BeginInit();
@@ -46,8 +46,8 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
+            this.quickButtonLayout1.SuspendLayout();
+            this.quickButtonLayout2.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -179,20 +179,20 @@
             this.startScriptButton.UseVisualStyleBackColor = false;
             this.startScriptButton.Click += new System.EventHandler(this.startScript_Click);
             // 
-            // tableLayoutPanel1
+            // quickButtonLayout1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.startScriptButton, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.stopScriptButton, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 37);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(80, 40);
-            this.tableLayoutPanel1.TabIndex = 4;
+            this.quickButtonLayout1.ColumnCount = 2;
+            this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.quickButtonLayout1.Controls.Add(this.startScriptButton, 0, 0);
+            this.quickButtonLayout1.Controls.Add(this.stopScriptButton, 1, 0);
+            this.quickButtonLayout1.Location = new System.Drawing.Point(15, 37);
+            this.quickButtonLayout1.Margin = new System.Windows.Forms.Padding(0);
+            this.quickButtonLayout1.Name = "quickButtonLayout1";
+            this.quickButtonLayout1.RowCount = 1;
+            this.quickButtonLayout1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.quickButtonLayout1.Size = new System.Drawing.Size(80, 40);
+            this.quickButtonLayout1.TabIndex = 4;
             // 
             // stopScriptButton
             // 
@@ -217,19 +217,19 @@
             this.stopScriptButton.UseVisualStyleBackColor = false;
             this.stopScriptButton.Click += new System.EventHandler(this.stopScriptButton_Click);
             // 
-            // tableLayoutPanel2
+            // quickButtonLayout2
             // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.saveButton, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(116, 37);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(80, 40);
-            this.tableLayoutPanel2.TabIndex = 5;
+            this.quickButtonLayout2.ColumnCount = 2;
+            this.quickButtonLayout2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.quickButtonLayout2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.quickButtonLayout2.Controls.Add(this.saveButton, 0, 0);
+            this.quickButtonLayout2.Location = new System.Drawing.Point(116, 37);
+            this.quickButtonLayout2.Margin = new System.Windows.Forms.Padding(0);
+            this.quickButtonLayout2.Name = "quickButtonLayout2";
+            this.quickButtonLayout2.RowCount = 1;
+            this.quickButtonLayout2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.quickButtonLayout2.Size = new System.Drawing.Size(80, 40);
+            this.quickButtonLayout2.TabIndex = 5;
             // 
             // saveButton
             // 
@@ -260,8 +260,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(1064, 681);
-            this.Controls.Add(this.tableLayoutPanel2);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.quickButtonLayout2);
+            this.Controls.Add(this.quickButtonLayout1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
@@ -275,8 +275,8 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
+            this.quickButtonLayout1.ResumeLayout(false);
+            this.quickButtonLayout2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -293,9 +293,9 @@
         private SplitContainer splitContainer1;
         private TextBox consoleBox;
         private Controls.CustomButton startScriptButton;
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel quickButtonLayout1;
         private Controls.CustomButton stopScriptButton;
-        private TableLayoutPanel tableLayoutPanel2;
+        private TableLayoutPanel quickButtonLayout2;
         private Controls.CustomButton saveButton;
     }
 }
