@@ -33,6 +33,7 @@
             this.RecentProjectsLayout = new System.Windows.Forms.Panel();
             this.CloseStartupPage = new ShellHolder.Controls.CustomButton();
             this.RefreshButton = new ShellHolder.Controls.CustomButton();
+            this.lockExtensionsCheckbox = new System.Windows.Forms.CheckBox();
             this.startupButtons.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -110,11 +111,12 @@
             this.OpenButton.ImageIcon = global::ShellHolder.Properties.Resources.OpenFolder1;
             this.OpenButton.Location = new System.Drawing.Point(3, 179);
             this.OpenButton.Name = "OpenButton";
-            this.OpenButton.SecondLine = "View all saved projects";
+            this.OpenButton.SecondLine = "View all saved projects in windows file explorer";
             this.OpenButton.Size = new System.Drawing.Size(259, 82);
             this.OpenButton.TabIndex = 1;
             this.OpenButton.TextColor = System.Drawing.Color.White;
             this.OpenButton.UseVisualStyleBackColor = false;
+            this.OpenButton.Click += new System.EventHandler(this.OpenButton_Click);
             // 
             // RecentProjectsLabel
             // 
@@ -123,9 +125,9 @@
             this.RecentProjectsLabel.ForeColor = System.Drawing.Color.White;
             this.RecentProjectsLabel.Location = new System.Drawing.Point(34, 45);
             this.RecentProjectsLabel.Name = "RecentProjectsLabel";
-            this.RecentProjectsLabel.Size = new System.Drawing.Size(97, 17);
+            this.RecentProjectsLabel.Size = new System.Drawing.Size(73, 17);
             this.RecentProjectsLabel.TabIndex = 2;
-            this.RecentProjectsLabel.Text = "Recent Projects";
+            this.RecentProjectsLabel.Text = "All projects";
             // 
             // RecentProjectsLayout
             // 
@@ -181,11 +183,25 @@
             this.RefreshButton.UseVisualStyleBackColor = false;
             this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
+            // lockExtensionsCheckbox
+            // 
+            this.lockExtensionsCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lockExtensionsCheckbox.AutoSize = true;
+            this.lockExtensionsCheckbox.Checked = true;
+            this.lockExtensionsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.lockExtensionsCheckbox.Location = new System.Drawing.Point(745, 217);
+            this.lockExtensionsCheckbox.Name = "lockExtensionsCheckbox";
+            this.lockExtensionsCheckbox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lockExtensionsCheckbox.Size = new System.Drawing.Size(15, 14);
+            this.lockExtensionsCheckbox.TabIndex = 6;
+            this.lockExtensionsCheckbox.UseVisualStyleBackColor = false;
+            // 
             // StartupPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.Controls.Add(this.lockExtensionsCheckbox);
             this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.CloseStartupPage);
             this.Controls.Add(this.RecentProjectsLayout);
@@ -209,5 +225,7 @@
         private Panel RecentProjectsLayout;
         private Controls.CustomButton CloseStartupPage;
         private Controls.CustomButton RefreshButton;
+        private CheckBox unlockExtensionsCheckbox;
+        private CheckBox lockExtensionsCheckbox;
     }
 }

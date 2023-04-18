@@ -33,9 +33,8 @@ namespace ShellHolder.Controls
             Click += StartupButton_Click;
 
             ContextMenuStrip cm = new ContextMenuStrip();
-            //cm.Items.Add(referenceProject.displayName);
-            cm.Items.Add("Delete", Resources.Delete, new EventHandler(DeleteProject_Click));
-            cm.Items.Add("Rename", Resources.Rename, new EventHandler(RenameProject_Click));
+            cm.Items.Add("Delete", null, new EventHandler(DeleteProject_Click));
+            cm.Items.Add("Rename", null, new EventHandler(RenameProject_Click));
 
             this.ContextMenuStrip = cm;
 
@@ -49,18 +48,6 @@ namespace ShellHolder.Controls
 
         private void DeleteProject_Click(object? sender, EventArgs e) {
 
-            if (MainPage.mainPage.currentProject != null) {
-
-                if (project.filePath == MainPage.mainPage.currentProject.filePath) {
-
-                    MainPage.mainPage.UnloadCurrentProject();
-                    /*bool Continue = MainPage.mainPage.AreYouSureSave();
-                    if (!Continue)
-                        return;*/
-                }
-            }
-
-
             DialogResult dialogResult = MessageBox.Show(
                 String.Format("Are you sure you want to delete project '{0}'", project.displayName) + Environment.NewLine +
                 "This option cannot be reversed.", "", MessageBoxButtons.YesNo);
@@ -70,8 +57,12 @@ namespace ShellHolder.Controls
                 return;
             }
 
-            if (MainPage.mainPage.currentProject != null) {
-                MainPage.mainPage.UnloadCurrentProject();
+            if (MainPage.mainPage.IsProjectLoaded(project)) {
+
+                /// If project is loaded during runtime, unload project to ensure safe removal.
+                TabPage tabPage = MainPage.mainPage.GetProjectTabPage(project);
+                ProjectPage projectPage = tabPage.Controls[0] as ProjectPage;
+                projectPage.UnloadProject(tabPage);
             }
 
             try {
@@ -84,32 +75,33 @@ namespace ShellHolder.Controls
 
         private void RenameProject_Click(object? sender, EventArgs e) {
 
-            if (MainPage.mainPage.currentProject != null) {
+            if (MainPage.mainPage.IsProjectLoaded(project)) {
 
-                if (project.filePath == MainPage.mainPage.currentProject.filePath) {
+                TabPage tabPage = MainPage.mainPage.GetProjectTabPage(project);
 
-                    if (!MainPage.mainPage.AreYouSureSave())
-                        return;
+                /// If project loaded, ensure project is saved first.
+                if (!FileUtils.AreYouSureSave(new List<TabPage> { tabPage }))
+                    return;
 
-                    MainPage.mainPage.UnloadCurrentProject();
-                }
+                /// Then we unload the project to ensure a safe renaming protocol.
+                ProjectPage projectPage = tabPage.Controls[0] as ProjectPage;
+                projectPage.UnloadProject(tabPage);
             }
 
             string input = ProjectUtil.GetProjectNameInput();
-            if (input.Length <= 0) {
+            if (input.Length <= 0) /// If input is empty or the user hits cancel    (yes i know, but the build in prompt for this also only returns strings and an empty one on cancel, its fkin stupid idc, im not gonna make a prompt from scratch)
                 return;
-            }
 
             string newPath = Path.Combine(FileUtils.GetSavedProjectsDirectory(), input + FileUtils.Extension);
-            Trace.WriteLine(newPath);
             try {
                 File.Move(project.filePath, newPath);
             } catch (Exception ex) {
                 ProjectUtil.ExceptionMessageBox(ex, project.displayName);
             }
-
             MainPage.mainPage.startUp.FillRecentProjectsButtons(FileUtils.RetrieveRecentProjects());
         }
+
+        #region "Drawing of custom button."
 
         private GraphicsPath GetFigurePath(Rectangle rect, float radius) {
 
@@ -160,25 +152,44 @@ namespace ShellHolder.Controls
                 }
             }
 
-            StringFormat sf = new StringFormat() { };
-            Brush brush = new SolidBrush(ForeColor);
-
             int width = 240;
 
+            /// Display name of project
             int nHeight = 20;
-            Rectangle nameRect = new Rectangle(7, 5, width, nHeight);
-            pevent.Graphics.DrawString(project.displayName, new Font(Font.FontFamily, 11, FontStyle.Bold), brush, nameRect, sf);
+            Rectangle nameRect = new Rectangle(6, 5, width, nHeight);
+            pevent.Graphics.DrawString(project.displayName, new Font(Font.FontFamily, 11, FontStyle.Bold), new SolidBrush(Color.White), nameRect);
+            /// ---
 
+
+            /// Precise last write string
             int lwHeight = 20;
-            Rectangle lastWriteRect = new Rectangle(7, ClientRectangle.Height - lwHeight - 3, width, lwHeight);
-            pevent.Graphics.DrawString(project.lastWriteTime.ToString(), Font, brush, lastWriteRect, sf);
+            Rectangle lastWriteRect = new Rectangle(6, ClientRectangle.Height - lwHeight - 5, width, lwHeight);
+            pevent.Graphics.DrawString(project.lastWriteTime.ToString(), Font, new SolidBrush(Color.LightGray), lastWriteRect);
+            /// ---
 
 
             /// Gives each file a different age rating to help the user reference easier.
-            string age = "Unknown";
+            string age;
             TimeSpan timeDifference = DateTime.Now - project.lastWriteTime;
             if (timeDifference.TotalHours <= 24) {
                 age = "Today";
+
+                string ago;
+                if (timeDifference.TotalMinutes < 1) {
+                    ago = String.Format("{0} seconds ago", (int)timeDifference.TotalSeconds);
+                } else if (timeDifference.TotalHours < 1) {
+                    ago = String.Format("{0} minutes ago", (int)timeDifference.TotalMinutes);
+                } else {
+                    ago = String.Format("{0} hours ago", (int)timeDifference.TotalHours);
+                }
+
+                /// More precise last write age, seen as "x time ago"
+                int agoWidth = 120;
+                int agoHeight = 20;
+                Rectangle agoRect = new Rectangle(ClientRectangle.Width - agoWidth - 7, ClientRectangle.Height - agoHeight - 5, agoWidth, agoHeight);
+                pevent.Graphics.DrawString(ago, Font, new SolidBrush(Color.DimGray), agoRect, new StringFormat() { Alignment = StringAlignment.Far });
+                /// ---
+
             } else if (timeDifference.TotalHours <= 48) {
                 age = "Yesterday";
             } else if (timeDifference.TotalDays <= 7) {
@@ -189,10 +200,12 @@ namespace ShellHolder.Controls
                 age = "Over a month ago";
             }
 
+            /// Last write age to the project file, (today, yesterday, this month, etc)
             int ageWidth = 120;
-            Rectangle ageRect = new Rectangle(ClientRectangle.Width - ageWidth - 10, 5, ageWidth, 20);
-            StringFormat sf3 = new StringFormat() { Alignment = StringAlignment.Far };
-            pevent.Graphics.DrawString(age, Font, brush, ageRect, sf3);
+            int ageHeight = 20;
+            Rectangle ageRect = new Rectangle(ClientRectangle.Width - ageWidth - 7, 5, ageWidth, ageHeight);
+            pevent.Graphics.DrawString(age, Font, new SolidBrush(Color.White), ageRect, new StringFormat() { Alignment = StringAlignment.Far });
+            /// ---
         }
 
         protected override void OnHandleCreated(EventArgs e) {
@@ -203,5 +216,7 @@ namespace ShellHolder.Controls
         private void Container_BackColorChanged(object sender, EventArgs e) {
             Invalidate();
         }
+
+        #endregion
     }
 }

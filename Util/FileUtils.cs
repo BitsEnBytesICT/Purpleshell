@@ -1,17 +1,13 @@
-﻿using ShellHolder.Controls;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using static ShellHolder.Util.FileUtils;
 
 namespace ShellHolder.Util
 {
     public class FileUtils
     {
-
+        public static readonly string FilterExtension = "*.ps1";
         public static readonly string Extension = ".ps1";
+
         public class Project
         {
             public string displayName { get; set; }
@@ -47,43 +43,48 @@ namespace ShellHolder.Util
             List<Project> recentProjects = new List<Project>();
 
             /// Retrieve all powershell files saved in the projects folder.
-            string[] filePaths = Directory.GetFiles(FileUtils.GetSavedProjectsDirectory(), "*.ps1");
+            string[] filePaths = Directory.GetFiles(FileUtils.GetSavedProjectsDirectory(), FileUtils.FilterExtension);
             foreach (string filePath in filePaths) {
 
-                Trace.WriteLine("Loading file: " + filePath);
-
-                Project project = new Project();
-
-
                 /// Retrieves all the file info and fills it into project.
-                FileInfo fileInfo = new FileInfo(filePath);
-
-                project.displayName = Path.GetFileNameWithoutExtension(fileInfo.Name);
-                project.creationTime = fileInfo.CreationTime;
-                project.lastWriteTime = fileInfo.LastWriteTime;
-                project.sizeBytes = fileInfo.Length;
-                project.filePath = filePath;
-
-                recentProjects.Add(project);
+                recentProjects.Add(RetrieveProjectFile(filePath));
             }
 
             /// Sort all projects by most recent date.
             return recentProjects.OrderBy(p => p.lastWriteTime).ToList();
         }
 
-        public static void ImportAFile(string[] filePaths) {
-            foreach (string filename in filePaths) {
-                if (Path.GetExtension(filename) != FileUtils.Extension) {
-                    MessageBox.Show("One or more of your files is not a valid powershell file (.ps1)");
-                    return;
+        public static Project RetrieveProjectFile(string filePath) {
+
+            Project project = new Project();
+            FileInfo fileInfo = new FileInfo(filePath);
+
+            Trace.WriteLine("Loading file: " + filePath);
+
+            project.displayName = Path.GetFileNameWithoutExtension(fileInfo.Name);
+            project.creationTime = fileInfo.CreationTime;
+            project.lastWriteTime = fileInfo.LastWriteTime;
+            project.sizeBytes = fileInfo.Length;
+            project.filePath = filePath;
+
+            return project;
+        }
+
+        public static void ImportAFile(string[] filePaths, bool lockExtensions) {
+
+            if (lockExtensions) {
+                foreach (string filename in filePaths) {
+                    if (Path.GetExtension(filename) != FileUtils.Extension) {
+                        MessageBox.Show(String.Format("One or more of your files is not a valid powershell file ({0})", FileUtils.Extension));
+                        return;
+                    }
                 }
             }
-
+           
             int filesImported = 0; /// Counts the amount of files that were correctly imported.
             int filesRenamed = 0; /// Counts the amount of files that had to be renamed because of duplication problems.
             foreach (string file in filePaths) {
                 try {
-
                     string content = "";
 
                     /// Open and read imported file, copy all of its content to string.
@@ -129,7 +130,9 @@ namespace ShellHolder.Util
 
 
 
-        public static bool SaveFile(Project project, string text) {
+        public static bool SaveFile(ProjectPage projectPage, string text) {
+
+            Project project = projectPage.project;
 
             try {
                 if (project == null)
@@ -146,8 +149,68 @@ namespace ShellHolder.Util
                 return false;
             }
 
-            MainPage.mainPage.SaveButtonEnable(false);
+            projectPage.SaveButtonEnable(false);
             return true;
+        }
+
+        /// Returns true if able to continue process after, else cancel everything after.
+        public static bool AreYouSureSave(List<TabPage> tabPages) {
+
+            List<ProjectPage> projectPages = new List<ProjectPage>();
+            foreach (TabPage tabPage in tabPages) {
+                ProjectPage page = tabPage.Controls[0] as ProjectPage;
+                if (!page.isSaved)
+                    projectPages.Add(page);
+            }
+
+            /// If all projects are saved just continue.
+            if (projectPages.Count <= 0)
+                return true;
+
+            /// If only one project needs to be passed thru run the normal prompt.
+            if (projectPages.Count == 1) {
+
+                ProjectPage project = projectPages[0];
+
+                DialogResult dialogResult = MessageBox.Show(String.Format("Save changes to project '{0}' ?", project.project.displayName), "", MessageBoxButtons.YesNoCancel);
+                if (dialogResult == DialogResult.Yes) {
+                    /// Save currently loaded file.
+                    project.SaveFile();
+                    return true;
+                }
+                else if (dialogResult == DialogResult.No) {
+                    /// Do nothing, dont save file just continue.
+                    return true;
+                }
+                else {
+                    /// Do not continue.
+                }
+
+            } /// if multiple projects arent saved run modified prompt.
+            else {
+                string txt = "Save changes to all projects below?" + Environment.NewLine;
+                foreach (ProjectPage page in projectPages) {
+                    txt += Environment.NewLine + "* " + page.project.displayName;
+                }
+
+                DialogResult dialogResult = MessageBox.Show(txt, "", MessageBoxButtons.YesNoCancel);
+                if (dialogResult == DialogResult.Yes) {
+                    /// Save currently loaded file.
+                    foreach (ProjectPage page in projectPages) {
+                        if (!page.isSaved)
+                            page.SaveFile();
+                    }
+                    return true;
+                }
+                else if (dialogResult == DialogResult.No) {
+                    /// Do nothing, dont save file just continue.
+                    return true;
+                }
+                else {
+                    /// Do not continue.
+                }
+            }
+            return false;
         }
     }
 }
