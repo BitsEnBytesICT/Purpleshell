@@ -1,7 +1,9 @@
-﻿using ShellHolder.Util;
+﻿using FastColoredTextBoxNS;
+using ShellHolder.Util;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Management.Automation;
+using System.Text.RegularExpressions;
 using static ShellHolder.Util.FileUtils;
 
 namespace ShellHolder
@@ -47,7 +49,23 @@ namespace ShellHolder
             textBox.TextChanged += TextBox_TextChanged;
         }
 
+        Style GreenStyle = new TextStyle(Brushes.Green, null, FontStyle.Italic);
+
         private void TextBox_TextChanged(object? sender, FastColoredTextBoxNS.TextChangedEventArgs e) {
+
+
+            e.ChangedRange.ClearStyle(GreenStyle);
+
+
+            /// Comment highlighting
+            e.ChangedRange.SetStyle(GreenStyle, @"//.*$", RegexOptions.Multiline);
+
+
+            /// Folding markers
+            e.ChangedRange.ClearFoldingMarkers();
+
+            e.ChangedRange.SetFoldingMarkers("{", "}");
+            e.ChangedRange.SetFoldingMarkers(@"#region\b", @"#endregion\b");
 
             if (project == null) {
                 return;
@@ -118,9 +136,11 @@ namespace ShellHolder
             string script = e.Argument.ToString();
             BackgroundWorker worker = sender as BackgroundWorker;
 
+            /// Create powershell runspace, to run the script in its own enviroment.
             PowerShell runspace = PowerShell.Create();
             runspace.AddScript(script);
 
+            /// Make an console output event handler that handles its output back on the main thread via the reportprogress backgroundworker.
             PSDataCollection<PSObject> output = new PSDataCollection<PSObject>();
             output.DataAdded += (sender, e) => {
                 if (sender == null || worker == null) return;
@@ -130,17 +150,19 @@ namespace ShellHolder
                 worker.ReportProgress(200, recordString);
             };
 
-            var res = runspace.BeginInvoke<PSObject, PSObject>(null, output);
+            /// Start the runspace and keep running until end is declared.
+            runspace.BeginInvoke<PSObject, PSObject>(null, output);
             while (runspace.InvocationStateInfo.State == PSInvocationState.Running) {
 
                 if (worker == null) return;
                 
+                /// If any errors occur during runtime of runspace, report the error and stop outside shell (backgroundworker) by throwing an exception which will be caught outside of the thread.
                 if (runspace.HadErrors) {
                     worker.ReportProgress(400, runspace.Streams.Error);
                     throw new InvalidOperationException();
-                    return;
                 }
 
+                /// If the user requested to cancel the worker, the do this immediatly. This will destroy the runspace and put the worker in an non use state.
                 if (worker.CancellationPending) {
                     e.Cancel = true;
                     return;
@@ -151,29 +173,32 @@ namespace ShellHolder
         private void Worker_ProgressChanged(object? sender, ProgressChangedEventArgs e) {
 
             string output = e.UserState.ToString();
-            //Trace.WriteLine(output);
+
             if (output.Length <= 0) 
                 return;
+
+            /// If report is positive (200), log to console default.
             if (e.ProgressPercentage == 200) {
                 AddToConsole(e.UserState.ToString(), Color.White);
             }
+            /// If console is error handling (400) handle all the errors at once.
             else if (e.ProgressPercentage == 400) {
                 PSDataCollection<ErrorRecord> errorStreams = e.UserState as PSDataCollection<ErrorRecord>;
                 foreach (ErrorRecord record in errorStreams) {
-                    AddToConsole(record.Exception.Message, Color.White, "🛑");
+                    string text = record.Exception.Message;
+                    AddToConsole(text, Color.White);
                 }
             }
         }
 
-        private void AddToConsole(string text, Color color = new Color(), string symbol = "") {
+        private void AddToConsole(string text, Color color = new Color()) {
 
             consoleBox.SuspendLayout();
 
             if (!color.IsEmpty)
                 consoleBox.SelectionColor = color;
 
-            string pre = (symbol.Length > 0 ? symbol + " " : "");
-            consoleBox.AppendText(pre + text + Environment.NewLine);
+            consoleBox.AppendText(text + Environment.NewLine);
             consoleBox.SelectionColor = consoleBox.ForeColor;
             consoleBox.ScrollToCaret();
 
@@ -184,7 +209,7 @@ namespace ShellHolder
             if (e.Error != null) {
                 AddToConsole(Environment.NewLine + "Error occurred!", Color.Red);
             }
-            else if (e.Cancelled == true) {
+            else if (e.Cancelled) {
                 AddToConsole(Environment.NewLine + "Cancelled!", Color.Orange);
             }
             else
@@ -207,9 +232,11 @@ namespace ShellHolder
         public void UnloadProject(TabPage page, bool formClosing = false) {
 
             try {
+                /// Close all pipelines and empty resources.
                 project.fileStream.Close();
                 worker.Dispose();
 
+                /// If user isnt closing the entire application, make sure to remove the tab as well.
                 if (!formClosing) {
                     MainPage.mainPage.GetProjectsControl().TabPages.Remove(page);
                 }

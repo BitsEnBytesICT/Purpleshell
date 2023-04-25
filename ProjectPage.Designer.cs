@@ -106,6 +106,7 @@
             this.startScriptButton.FlatAppearance.BorderSize = 0;
             this.startScriptButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startScriptButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.startScriptButton.HoverToolTip = "Click to start script.";
             this.startScriptButton.ImageIcon = global::ShellHolder.Properties.Resources.Start;
             this.startScriptButton.ImagePadding = 11;
             this.startScriptButton.Location = new System.Drawing.Point(2, 2);
@@ -129,6 +130,7 @@
             this.stopScriptButton.FlatAppearance.BorderSize = 0;
             this.stopScriptButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.stopScriptButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.stopScriptButton.HoverToolTip = "Click to stop the running script.";
             this.stopScriptButton.ImageIcon = global::ShellHolder.Properties.Resources.Stop;
             this.stopScriptButton.ImagePadding = 11;
             this.stopScriptButton.Location = new System.Drawing.Point(42, 2);
@@ -152,6 +154,7 @@
             this.saveButton.FlatAppearance.BorderSize = 0;
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.saveButton.HoverToolTip = "Click to save or use Ctrl + S.";
             this.saveButton.ImageIcon = global::ShellHolder.Properties.Resources.Save;
             this.saveButton.ImagePadding = 10;
             this.saveButton.Location = new System.Drawing.Point(92, 2);
@@ -175,6 +178,7 @@
             this.homeButton.FlatAppearance.BorderSize = 0;
             this.homeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.homeButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.homeButton.HoverToolTip = "Click to open the startup page.";
             this.homeButton.ImageIcon = global::ShellHolder.Properties.Resources.Home;
             this.homeButton.ImagePadding = 7;
             this.homeButton.Location = new System.Drawing.Point(1022, 2);
@@ -202,8 +206,8 @@
             // mainContainer.Panel2
             // 
             this.mainContainer.Panel2.Controls.Add(this.consoleBox);
-            this.mainContainer.Size = new System.Drawing.Size(1080, 692);
-            this.mainContainer.SplitterDistance = 430;
+            this.mainContainer.Size = new System.Drawing.Size(1080, 722);
+            this.mainContainer.SplitterDistance = 440;
             this.mainContainer.TabIndex = 3;
             // 
             // textBox
@@ -229,28 +233,29 @@
             this.textBox.ForeColor = System.Drawing.Color.White;
             this.textBox.IndentBackColor = System.Drawing.SystemColors.WindowFrame;
             this.textBox.IsReplaceMode = false;
-            this.textBox.LineNumberColor = System.Drawing.Color.Turquoise;
+            this.textBox.LineNumberColor = System.Drawing.Color.Crimson;
             this.textBox.Location = new System.Drawing.Point(0, 0);
             this.textBox.Name = "textBox";
             this.textBox.Paddings = new System.Windows.Forms.Padding(0);
             this.textBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.textBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("textBox.ServiceColors")));
-            this.textBox.Size = new System.Drawing.Size(1080, 430);
+            this.textBox.ShowFoldingLines = true;
+            this.textBox.Size = new System.Drawing.Size(1080, 440);
             this.textBox.TabIndex = 1;
             this.textBox.Zoom = 100;
             // 
             // consoleBox
             // 
-            this.consoleBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.consoleBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.consoleBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.consoleBox.ForeColor = System.Drawing.Color.White;
             this.consoleBox.Location = new System.Drawing.Point(0, 0);
-            this.consoleBox.Multiline = true;
             this.consoleBox.Name = "consoleBox";
             this.consoleBox.ReadOnly = true;
-            this.consoleBox.ScrollBars = RichTextBoxScrollBars.Vertical;
-            this.consoleBox.Size = new System.Drawing.Size(1080, 258);
+            this.consoleBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.consoleBox.Size = new System.Drawing.Size(1080, 278);
             this.consoleBox.TabIndex = 0;
+            this.consoleBox.Text = "";
             // 
             // ProjectPage
             // 
@@ -267,7 +272,6 @@
             this.quickButtonLayout1.ResumeLayout(false);
             this.mainContainer.Panel1.ResumeLayout(false);
             this.mainContainer.Panel2.ResumeLayout(false);
-            this.mainContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).EndInit();
             this.mainContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.textBox)).EndInit();

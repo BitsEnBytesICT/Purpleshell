@@ -1,10 +1,12 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ShellHolder.Util.FileUtils;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ShellHolder.Util
 {
@@ -65,6 +67,61 @@ namespace ShellHolder.Util
                         "An error occured with '" + projectName + "'" + Environment.NewLine + Environment.NewLine +
                         ex.Message + Environment.NewLine +
                         ex.StackTrace + Environment.NewLine);
+        }
+
+        public static void LoadProjectFromDirectory(Project project, bool newProject) {
+
+            if (!newProject) {
+                if (!File.Exists(project.filePath)) {
+                    MessageBox.Show("Could not find specified project");
+                    return;
+                }
+
+                if (MainPage.mainPage.IsProjectLoaded(project)) {
+
+                    Trace.WriteLine("Project is already opened in the editor.");
+                    Trace.WriteLine(project.displayName);
+                    MainPage.mainPage.SelectTab(project);
+
+
+                    MainPage.mainPage.startUp.ShowPage(false);
+                    return;
+                }
+            }
+
+            MainPage.mainPage.startUp.ShowPage(false);
+
+
+            /// Setup new project
+            try {
+                FileStream stream = File.Open(project.filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+                string contents = "";
+
+                if (!newProject) {
+                    using (StreamReader sr = new StreamReader(stream, leaveOpen: true)) {
+                        contents = sr.ReadToEnd();
+                        sr.Close();
+                    }
+                }
+
+                project.fileStream = stream;
+                ProjectPage projectPage = new ProjectPage(project);
+
+                projectPage.SetTextBox(contents);
+                projectPage.SaveButtonEnable(false);
+
+                TabPage tab = new TabPage();
+                tab.Controls.Add(projectPage);
+                tab.Name = project.displayName;
+                tab.Text = project.displayName;
+
+                MainPage.mainPage.AddTab(tab, true);
+            }
+            catch (Exception e) {
+                Trace.WriteLine(e.Message);
+                Trace.WriteLine(e.StackTrace);
+                return;
+            }
         }
     }
 }

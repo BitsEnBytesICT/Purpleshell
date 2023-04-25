@@ -2,6 +2,7 @@ using ShellHolder.Properties;
 using ShellHolder.Util;
 using System.Diagnostics;
 using static ShellHolder.Util.FileUtils;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ShellHolder
 {
@@ -94,7 +95,18 @@ namespace ShellHolder
             return null;
         }
 
-        public void LoadProjectFromDirectory(Project project, bool newProject) {
+        public void AddTab (TabPage tabPage, bool selectTab = false) {
+            projectControl.Controls.Add(tabPage);
+            if (selectTab)
+                projectControl.SelectTab(tabPage);
+        }
+
+        public void SelectTab(Project project) {
+            projectControl.SelectTab(project.displayName);
+        }
+
+        /// Moved load project funciton to ProjectUtil class
+        /*public void LoadProjectFromDirectory(Project project, bool newProject) {
 
             if (!newProject) {
                 if (!File.Exists(project.filePath)) {
@@ -148,7 +160,7 @@ namespace ShellHolder
                 Trace.WriteLine(e.StackTrace);
                 return;
             }
-        }
+        }*/
 
 
 
@@ -164,25 +176,13 @@ namespace ShellHolder
         /// Toolstrip Items
         ///
 
-
-
-        Point imageLocation = new Point(22, 6);
-        Point imageHitArea = new Point(22, 6);
+        Rectangle imageRec = new Rectangle(18, 6, 12, 12);
 
         private void TabControl_DrawItem(object sender, DrawItemEventArgs e) {
 
             //Trace.WriteLine("JHSDFJHDSHBFSHBJFSHJBFHBJSDHJFSDJHFHBSJFHSDHJF" + new Random().Next());
 
             Trace.WriteLine(this.projectControl.TabPages[e.Index].Text + " - " + e.State.ToString());
-
-            /*Image img;
-            if (e.Index == this.projectControl.TabCount - 1) {
-                img = new Bitmap(AddImage);
-                projectControl.Padding = new Point(20, 4);
-            }
-            else {
-                img = new Bitmap(CloseImage);
-            }*/
 
             Brush tabColor;
             if (e.State == DrawItemState.Selected) {
@@ -191,31 +191,30 @@ namespace ShellHolder
                 tabColor = new SolidBrush(Color.FromArgb(130, 130, 130));
             }
 
-            Rectangle r = e.Bounds;
-            r = this.projectControl.GetTabRect(e.Index);
+            Rectangle r = projectControl.GetTabRect(e.Index);
 
             e.Graphics.FillRectangle(tabColor, r);
 
-            r.Offset(2, 2);
-            Brush TitleBrush = new SolidBrush(Color.Black);
 
+            Brush TitleBrush = new SolidBrush(Color.Black);
             string title = projectControl.TabPages[e.Index].Text;
 
-            e.Graphics.DrawString(title, Font, TitleBrush, new PointF(r.X, r.Y));
-            e.Graphics.DrawImage(new Bitmap(Resources.X, 12, 12), new Point(r.X + (projectControl.GetTabRect(e.Index).Width - imageLocation.X), imageLocation.Y));
+            Rectangle stringRec = new Rectangle(r.X, r.Y + 2, r.Width - imageRec.X, r.Height);
+            e.Graphics.DrawString(title, Font, TitleBrush, stringRec, new StringFormat() { Trimming = StringTrimming.EllipsisCharacter, Alignment = StringAlignment.Near, FormatFlags = StringFormatFlags.NoWrap });
+
+            e.Graphics.DrawImage(new Bitmap(Resources.X, imageRec.Width, imageRec.Height), r.X + (r.Width - imageRec.X), imageRec.Y, imageRec.Width, imageRec.Height);
         }
 
         private void ProjectControl_MouseClick(object sender, MouseEventArgs e) {
             TabControl tabControl = (TabControl)sender;
-            Point p = e.Location;
-            int _tabWidth = 0;
-            _tabWidth = projectControl.GetTabRect(tabControl.SelectedIndex).Width - (imageHitArea.X);
+            Point clickLocation = e.Location;
+            int tabWidth = projectControl.GetTabRect(tabControl.SelectedIndex).Width - (imageRec.X);
             Rectangle r = projectControl.GetTabRect(tabControl.SelectedIndex);
-            r.Offset(_tabWidth, imageHitArea.Y);
-            r.Width = 12;
-            r.Height = 12;
+            r.Offset(tabWidth, imageRec.Y);
+            r.Width = imageRec.Width;
+            r.Height = imageRec.Height;
 
-            if (r.Contains(p)) {
+            if (r.Contains(clickLocation)) {
                 TabPage tabPage = (TabPage)tabControl.TabPages[tabControl.SelectedIndex];
 
                 if (!FileUtils.AreYouSureSave(new List<TabPage> { tabPage })) {
@@ -229,19 +228,6 @@ namespace ShellHolder
                     startUp.ShowPage(true);
                 }
             }
-            /*if (projectControl.SelectedIndex == this.projectControl.TabCount - 1) {
-                TabPage tab = new TabPage();
-                tab.Text = "";
-                projectControl.Controls.Add(tab);
-                this.projectControl.TabPages[this.projectControl.TabCount - 2].Text =
-                    "tabPage" + this.projectControl.TabCount.ToString();
-            }
-            else {
-                if (r.Contains(p)) {
-                    TabPage tabPage = (TabPage)tabControl.TabPages[tabControl.SelectedIndex];
-                    tabControl.TabPages.Remove(tabPage);
-                }
-            }*/
         }
     }
 }

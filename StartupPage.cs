@@ -20,6 +20,7 @@ namespace ShellHolder
             this.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             this.Dock = DockStyle.Fill;
 
+            /// Tooltip for when hovering over the checkbox at the import button, when unchecked this will allow any file to be imported (txt, mp4, exe, anything!) instead of only to the set Extensions.
             ToolTip yourToolTip = new ToolTip();
             yourToolTip.ToolTipIcon = ToolTipIcon.Info;
             yourToolTip.AutomaticDelay = 0;
@@ -31,11 +32,6 @@ namespace ShellHolder
 
             recentProjects = FileUtils.RetrieveRecentProjects();
             FillRecentProjectsButtons(recentProjects);
-        }
-
-        private void StartupPage_Load(object sender, EventArgs e) {
-
-            Trace.WriteLine("Startup Page loaded.");
         }
 
         private void CloseStartupPage_Click(object sender, EventArgs e) {
@@ -57,34 +53,35 @@ namespace ShellHolder
                 filePath = Path.Combine(GetSavedProjectsDirectory(), input + FileUtils.Extension),
             };
 
-            MainPage.mainPage.LoadProjectFromDirectory(project, true);
+            ProjectUtil.LoadProjectFromDirectory(project, true);
         }
 
 
         private void ImportButton_Click(object sender, EventArgs e) {
 
-            using (OpenFileDialog openFileDialog = new OpenFileDialog()) {
+            OpenFileDialog openFileDialog = new OpenFileDialog() {
+                RestoreDirectory = true,
+                Multiselect = true,
 
-                if (lockExtensionsCheckbox.Checked)
-                    openFileDialog.Filter = String.Format("Powershell files ({0})|{0}", FileUtils.FilterExtension);
+                CheckFileExists = true,
+                CheckPathExists = true,
+            };
+            /// If user has extensions unlocked, there wont be a filter and the user can select any file, otherwise it is restricted to the FilterExtension.
+            if (lockExtensionsCheckbox.Checked)
+                openFileDialog.Filter = String.Format("Powershell files ({0})|{0}", FileUtils.FilterExtension);
 
-                openFileDialog.RestoreDirectory = true;
-                openFileDialog.Multiselect = true;
+            DialogResult result = openFileDialog.ShowDialog();
+            if (result != DialogResult.OK)
+                return;
 
-                openFileDialog.CheckFileExists = true;
-                openFileDialog.CheckPathExists = true;
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK) {
-
-                    string[] filePaths = openFileDialog.FileNames;
-                    foreach (string file in filePaths) {
-                        Trace.WriteLine(file);
-                    }
-
-                    ImportAFile(filePaths, lockExtensionsCheckbox.Checked);
-                    FillRecentProjectsButtons(FileUtils.RetrieveRecentProjects());
-                }
+            string[] filePaths = openFileDialog.FileNames;
+            foreach (string file in filePaths) {
+                Trace.WriteLine(file);
             }
+
+            ImportAFile(filePaths, lockExtensionsCheckbox.Checked);
+            FillRecentProjectsButtons(FileUtils.RetrieveRecentProjects());
         }
 
         private void ImportButton_DragEnter(object sender, DragEventArgs e) {
@@ -115,25 +112,25 @@ namespace ShellHolder
 
 
         private void OpenButton_Click(object sender, EventArgs e) {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = FileUtils.GetSavedProjectsDirectory();
-            openFileDialog.Filter = String.Format("ShellHolder files ({0})|{0}", FileUtils.FilterExtension);
-            openFileDialog.CheckFileExists = true;
-            openFileDialog.CheckPathExists = true;
+            OpenFileDialog openFileDialog = new OpenFileDialog() {
+                InitialDirectory = FileUtils.GetSavedProjectsDirectory(),
+                Filter = String.Format("ShellHolder files ({0})|{0}", FileUtils.FilterExtension),
+                CheckFileExists = true,
+                CheckPathExists = true,
+            };
+
             DialogResult result = openFileDialog.ShowDialog();
-
-            if (result != DialogResult.OK) {
+            if (result != DialogResult.OK)
                 return;
-            }
 
-            Trace.WriteLine("Full path: " + Path.GetDirectoryName(openFileDialog.FileName));
+            /// If user went outside of projects directory to retrieve file, cancel. Cant do that without importing project first.
             if (Path.GetDirectoryName(openFileDialog.FileName) != FileUtils.GetSavedProjectsDirectory()) {
                 MessageBox.Show("Can only retrieve files from original folder." + Environment.NewLine + "If your trying to use files outside of project directory please import them first with the button or manually.");
                 return;
             }
 
             Project project = FileUtils.RetrieveProjectFile(openFileDialog.FileName);
-            MainPage.mainPage.LoadProjectFromDirectory(project, false);
+            ProjectUtil.LoadProjectFromDirectory(project, false);
         }
 
 
@@ -145,11 +142,10 @@ namespace ShellHolder
 
         public void ShowPage(bool show) {
             if (show) {
+                FillRecentProjectsButtons(FileUtils.RetrieveRecentProjects());
+
                 this.Show();
                 this.BringToFront();
-
-                recentProjects = FileUtils.RetrieveRecentProjects();
-                FillRecentProjectsButtons(recentProjects);
             } else {
                 this.Hide();
             }

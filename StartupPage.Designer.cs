@@ -209,7 +209,6 @@
             this.Controls.Add(this.startupButtons);
             this.Name = "StartupPage";
             this.Size = new System.Drawing.Size(800, 454);
-            this.Load += new System.EventHandler(this.StartupPage_Load);
             this.startupButtons.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -225,7 +224,6 @@
         private Panel RecentProjectsLayout;
         private Controls.CustomButton CloseStartupPage;
         private Controls.CustomButton RefreshButton;
-        private CheckBox unlockExtensionsCheckbox;
         private CheckBox lockExtensionsCheckbox;
     }
 }

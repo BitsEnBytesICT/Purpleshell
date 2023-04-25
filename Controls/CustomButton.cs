@@ -9,6 +9,8 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.ComponentModel;
 using System.Drawing.Imaging;
+using ShellHolder.Util;
+using System.Diagnostics;
 
 namespace ShellHolder.Controls
 {
@@ -21,6 +23,7 @@ namespace ShellHolder.Controls
         private Image imageIcon = null;
         private int imagePadding = 0;
         public bool NotificationIcon = false;
+        private string toolTip = "";
 
 
 
@@ -71,6 +74,12 @@ namespace ShellHolder.Controls
             set { imagePadding = value; }
         }
 
+        [Category("AA Custom Options")]
+        public string HoverToolTip {
+            get { return toolTip; }
+            set { toolTip = value; }
+        }
+
 
         /*public override string Text {
             get { return ""; }
@@ -116,6 +125,14 @@ namespace ShellHolder.Controls
         {
             base.OnPaint(pevent);
 
+            if (toolTip.Length > 0) {
+                ToolTip yourToolTip = new ToolTip();
+                //yourToolTip.ToolTipIcon = ToolTipIcon.Info;
+                yourToolTip.AutomaticDelay = 0;
+                yourToolTip.InitialDelay = 0;
+                yourToolTip.ShowAlways = true;
+                yourToolTip.SetToolTip(this, toolTip);
+            }
 
             Rectangle rectSurface = ClientRectangle;
             Rectangle rectBorder = Rectangle.Inflate(rectSurface, -borderSize, -borderSize);
