@@ -1,0 +1,13 @@
+{
+  "projects": [
+    "C:\\Users\\Joshua\\Pictures\\testing 2\\hellomessagebox.ps1",
+    "C:\\Users\\Joshua\\Pictures\\testing 2\\ping_test.ps1",
+    "C:\\Users\\Joshua\\Pictures\\testing 2\\ping_test_Copy.ps1",
+    "C:\\Users\\Joshua\\Pictures\\testing 3\\boo.ps1",
+    "C:\\Users\\Joshua\\Pictures\\testing 3\\i dont fkin know.ps1",
+    "C:\\Users\\Joshua\\Pictures\\testing 3\\ping but yes.ps1",
+    "C:\\Users\\Joshua\\Pictures\\testing 3\\showBoxTest.ps1",
+    "C:\\Users\\Joshua\\Pictures\\testing 3\\Untitled1 - Copy.ps1"
+  ],
+  "syntaxHighlight": false
+}

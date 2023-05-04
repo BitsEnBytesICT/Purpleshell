@@ -10,7 +10,7 @@ namespace ShellHolder
         
 
         /// Holds all recents projects into memory to be loaded on demand.
-        List<Project> recentProjects = new List<Project>();
+        //List<Project> recentProjects = new List<Project>();
 
 
 
@@ -29,30 +29,35 @@ namespace ShellHolder
             yourToolTip.SetToolTip(lockExtensionsCheckbox, String.Format("When checked, importing files will only allow \"{0}\" to be imported. {1}Unchecking this will open it to all file types to be imported into raw format.", FileUtils.Extension, Environment.NewLine));
 
             Trace.WriteLine("Startup Page initialized.");
-
-            recentProjects = FileUtils.RetrieveRecentProjects();
-            FillRecentProjectsButtons(recentProjects);
+            ReloadProjects();
         }
 
         private void CloseStartupPage_Click(object sender, EventArgs e) {
             ShowPage(false);
         }
 
-        private void NewProjectButton_Click(object sender, EventArgs e) {            
-            
-            string input = ProjectUtil.GetProjectNameInput();
+        private void NewProjectButton_Click(object sender, EventArgs e) {
+
+            string filepath = ProjectUtil.GetSaveFilepath();
+            if (filepath.Length <= 0) {
+                return;
+            }
+
+            string input = ProjectUtil.GetProjectNameInput(filepath, "");
             if (input.Length <= 0) {
                 return;
             }
-            
+
             Project project = new Project() {
                 displayName = input,
-                creationTime = DateTime.Now,
                 lastWriteTime = DateTime.Now,
+                lastAccessTime = DateTime.Now,
+                creationTime = DateTime.Now,
                 sizeBytes = 0,
-                filePath = Path.Combine(GetSavedProjectsDirectory(), input + FileUtils.Extension),
+                filePath = Path.Combine(filepath, input + FileUtils.Extension),
             };
 
+            SettingsUtil.AddProject(project);
             ProjectUtil.LoadProjectFromDirectory(project, true);
         }
 
@@ -74,14 +79,19 @@ namespace ShellHolder
             if (result != DialogResult.OK)
                 return;
 
+            string saveFilePath = ProjectUtil.GetSaveFilepath();
+            if (saveFilePath.Length <= 0) {
+                return;
+            }
 
             string[] filePaths = openFileDialog.FileNames;
             foreach (string file in filePaths) {
                 Trace.WriteLine(file);
             }
 
-            ImportAFile(filePaths, lockExtensionsCheckbox.Checked);
-            FillRecentProjectsButtons(FileUtils.RetrieveRecentProjects());
+            ImportAFile(filePaths, saveFilePath, lockExtensionsCheckbox.Checked);
+            SettingsUtil.Save();
+            ReloadProjects();
         }
 
         private void ImportButton_DragEnter(object sender, DragEventArgs e) {
@@ -105,13 +115,19 @@ namespace ShellHolder
                 return;
             }
 
-            FileUtils.ImportAFile(filePaths, lockExtensionsCheckbox.Checked);
-            FillRecentProjectsButtons(FileUtils.RetrieveRecentProjects());
+            string saveFilePath = ProjectUtil.GetSaveFilepath();
+            if (saveFilePath.Length <= 0) {
+                return;
+            }
+
+            FileUtils.ImportAFile(filePaths, saveFilePath, lockExtensionsCheckbox.Checked);
+            SettingsUtil.Save();
+            ReloadProjects();
         }
 
 
 
-        private void OpenButton_Click(object sender, EventArgs e) {
+        /*private void OpenButton_Click(object sender, EventArgs e) {
             OpenFileDialog openFileDialog = new OpenFileDialog() {
                 InitialDirectory = FileUtils.GetSavedProjectsDirectory(),
                 Filter = String.Format("ShellHolder files ({0})|{0}", FileUtils.FilterExtension),
@@ -131,18 +147,19 @@ namespace ShellHolder
 
             Project project = FileUtils.RetrieveProjectFile(openFileDialog.FileName);
             ProjectUtil.LoadProjectFromDirectory(project, false);
-        }
+        }*/
 
 
         private void RefreshButton_Click(object sender, EventArgs e) {
 
-            FillRecentProjectsButtons(FileUtils.RetrieveRecentProjects());
+            ReloadProjects();
+            //SettingsUtil.Save();
         }
 
 
         public void ShowPage(bool show) {
             if (show) {
-                FillRecentProjectsButtons(FileUtils.RetrieveRecentProjects());
+                ReloadProjects();
 
                 this.Show();
                 this.BringToFront();
@@ -151,8 +168,11 @@ namespace ShellHolder
             }
         }
 
+        public void ReloadProjects () {
+            FillRecentProjectsButtons(FileUtils.RetrieveRecentProjects());
+        }
 
-        public void FillRecentProjectsButtons(List<Project> projects) {
+        private void FillRecentProjectsButtons(List<Project> projects) {
             RecentProjectsLayout.Controls.Clear();
             foreach (Project project in projects) {
                 RecentProjectsLayout.Controls.Add(new RecentProjectButton(project));

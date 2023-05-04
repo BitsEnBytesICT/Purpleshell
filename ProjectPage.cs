@@ -1,4 +1,5 @@
 ﻿using FastColoredTextBoxNS;
+using ShellHolder.Properties;
 using ShellHolder.Util;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -44,27 +45,110 @@ namespace ShellHolder
             SaveButtonEnable(false);
 
 
+            /// Syntax button
+            SetSyntaxButtonImage(SettingsUtil.IsSyntaxHighlightEnabled());
+
+
 
             /// Setup textBox
             textBox.TextChanged += TextBox_TextChanged;
+
+            textBox.Language = Language.Custom;
+            textBox.AutoIndent = true;
+            textBox.LeftBracket = '(';
+            textBox.RightBracket = ')';
+            textBox.LeftBracket2 = '{';
+            textBox.RightBracket2 = '}';
+            textBox.SelectionColor = Color.FromArgb(50, 0, 0, 255);
+            textBox.CaretColor = Color.FromArgb(255, 255, 255, 255);
         }
 
-        Style GreenStyle = new TextStyle(Brushes.Green, null, FontStyle.Italic);
+        //Style CommentStyle = new TextStyle(new SolidBrush(Color.FromArgb(160, 160, 160)), null, FontStyle.Italic);
+        //Style StringStyle = new TextStyle(Brushes.IndianRed, null, FontStyle.Regular);
+
+        // Define styles for syntax highlighting
+        Style commentStyle = new TextStyle(Brushes.ForestGreen, null, FontStyle.Italic);
+        Style stringStyle = new TextStyle(Brushes.IndianRed, null, FontStyle.Regular);
+        Style variableStyle = new TextStyle(Brushes.Yellow, null, FontStyle.Regular);
+        Style variableExpressionStyle = new TextStyle(Brushes.Orange, null, FontStyle.Regular);
+        Style cmdletStyle = new TextStyle(Brushes.LightGray, null, FontStyle.Regular);
+        Style parameterStyle = new TextStyle(Brushes.DarkCyan, null, FontStyle.Regular);
+        Style typeAcceleratorStyle = new TextStyle(Brushes.DodgerBlue, null, FontStyle.Regular);
+        Style typeNameStyle = new TextStyle(Brushes.DeepSkyBlue, null, FontStyle.Regular);
+        Style attributeStyle = new TextStyle(Brushes.DarkGray, null, FontStyle.Regular);
+        Style cmdletPlaceholderStyle = new TextStyle(Brushes.BlueViolet, null, FontStyle.Regular);
+        Style scriptBlockStyle = new TextStyle(Brushes.Gray, null, FontStyle.Regular);
+        Style multilineStringStyle = new TextStyle(Brushes.Brown, null, FontStyle.Regular);
+        Style hereStringStyle = new TextStyle(Brushes.Brown, null, FontStyle.Regular);
+
+        // Define regex patterns for syntax highlighting
+        Regex commentPattern = new Regex(@"#.*$", RegexOptions.Multiline);
+        Regex singleQuotedStringPattern = new Regex(@"'([^'\\]*(?:\\.[^'\\]*)*)'", RegexOptions.Multiline);
+        Regex doubleQuotedStringPattern = new Regex("\"([^\"\\\\]*(?:\\\\.[^\"\\\\]*)*)\"", RegexOptions.Multiline);
+        Regex variablePattern = new Regex(@"(?<!`)\$(\w+|(?<brace>{)\w+(?<end-brace>})|\?)", RegexOptions.Multiline);
+        Regex variableExpressionPattern = new Regex(@"\$\(([^)]*)\)", RegexOptions.Multiline);
+        Regex cmdletPattern = new Regex(@"\b(Get|Set|New|Add|Remove|Clear|Update|Invoke|Export|Import|Convert|Compare|Format|Measure|Out|Select|Sort|Group|Join|Where|ForEach|Switch|Write)\-[A-Za-z]+", RegexOptions.IgnoreCase);
+        Regex parameterPattern = new Regex(@"-(\w+)", RegexOptions.Multiline);
+        Regex typeAcceleratorPattern = new Regex(@"\b([A-Z]\w+\.)+\w+\b", RegexOptions.Multiline);
+        Regex typeNamePattern = new Regex(@"\b([A-Z]\w*)\b", RegexOptions.Multiline);
+        Regex attributePattern = new Regex(@"\[(.*?)\]", RegexOptions.Multiline);
+        Regex cmdletPlaceholderPattern = new Regex(@"\{(?<index>\d+)\}", RegexOptions.Multiline);
+        Regex scriptBlockPattern = new Regex(@"\{.*?\}", RegexOptions.Singleline);
+        Regex multilineStringPattern = new Regex(@"(@['""])(.*?)\1", RegexOptions.Singleline);
+        Regex hereStringPattern = new Regex(@"(@['""]{1,2})(.*?)\1", RegexOptions.Singleline);
+
 
         private void TextBox_TextChanged(object? sender, FastColoredTextBoxNS.TextChangedEventArgs e) {
 
+            e.ChangedRange.ClearStyle(StyleIndex.All);
 
-            e.ChangedRange.ClearStyle(GreenStyle);
+            if (SettingsUtil.IsSyntaxHighlightEnabled()) {
 
+                // Set the style for comments
+                e.ChangedRange.SetStyle(commentStyle, commentPattern);
 
-            /// Comment highlighting
-            e.ChangedRange.SetStyle(GreenStyle, @"//.*$", RegexOptions.Multiline);
+                // Set the style for single-quoted and double-quoted strings
+                e.ChangedRange.SetStyle(stringStyle, singleQuotedStringPattern);
+                e.ChangedRange.SetStyle(stringStyle, doubleQuotedStringPattern);
 
+                // Set the style for variables
+                e.ChangedRange.SetStyle(variableStyle, variablePattern);
 
-            /// Folding markers
+                // Set the style for variables enclosed in $( )
+                e.ChangedRange.SetStyle(variableExpressionStyle, variableExpressionPattern);
+
+                // Set the style for cmdlets
+                e.ChangedRange.SetStyle(cmdletStyle, cmdletPattern);
+
+                // Set the style for parameters
+                e.ChangedRange.SetStyle(parameterStyle, parameterPattern);
+
+                // Set the style for type accelerators
+                e.ChangedRange.SetStyle(typeAcceleratorStyle, typeAcceleratorPattern);
+
+                // Set the style for type names
+                e.ChangedRange.SetStyle(typeNameStyle, typeNamePattern);
+
+                // Set the style for attributes
+                e.ChangedRange.SetStyle(attributeStyle, attributePattern);
+
+                // Set the style for cmdlet placeholders enclosed in { }
+                e.ChangedRange.SetStyle(cmdletPlaceholderStyle, cmdletPlaceholderPattern);
+
+                // Set the style for script blocks enclosed in { }
+                e.ChangedRange.SetStyle(scriptBlockStyle, scriptBlockPattern);
+
+                // Set the style for multiline string literals enclosed in @' '@ or @" "@
+                e.ChangedRange.SetStyle(multilineStringStyle, multilineStringPattern);
+
+                // Set the style for here-strings enclosed in @"" "@ or @'' '@
+                e.ChangedRange.SetStyle(hereStringStyle, hereStringPattern);
+            }
+
+            // Folding markers
             e.ChangedRange.ClearFoldingMarkers();
 
-            e.ChangedRange.SetFoldingMarkers("{", "}");
+            e.ChangedRange.SetFoldingMarkers("{ ", "}");
             e.ChangedRange.SetFoldingMarkers(@"#region\b", @"#endregion\b");
 
             if (project == null) {
@@ -249,6 +333,16 @@ namespace ShellHolder
 
         private void homeButton_Click(object sender, EventArgs e) {
             MainPage.mainPage.startUp.ShowPage(true);
+        }
+
+        private void syntaxHighlight_Click(object sender, EventArgs e) {
+            bool enabled = !SettingsUtil.IsSyntaxHighlightEnabled();
+            SetSyntaxButtonImage(enabled);
+            SettingsUtil.SetSyntaxHighlight(enabled);
+        }
+
+        private void SetSyntaxButtonImage(bool enabled) {
+            syntaxHighlightButton.ImageIcon = (enabled ? Resources.SyntaxEnabled : Resources.SyntaxDisabled);
         }
     }
 }

@@ -65,7 +65,7 @@
             this.projectControl.Location = new System.Drawing.Point(0, 24);
             this.projectControl.Name = "projectControl";
             this.projectControl.SelectedIndex = 0;
-            this.projectControl.Size = new System.Drawing.Size(1064, 657);
+            this.projectControl.Size = new System.Drawing.Size(1064, 537);
             this.projectControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.projectControl.TabIndex = 1;
             this.projectControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.TabControl_DrawItem);
@@ -76,10 +76,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(1064, 681);
+            this.ClientSize = new System.Drawing.Size(1064, 561);
             this.Controls.Add(this.projectControl);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
+            this.MinimumSize = new System.Drawing.Size(1080, 600);
             this.Name = "MainPage";
             this.Text = "ShellHolder";
             this.mainMenu.ResumeLayout(false);

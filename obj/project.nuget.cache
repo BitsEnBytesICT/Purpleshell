@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Cfn0RuGnUA7At+YFRfdyW1Kyqyd2G/oMFps6rYJczCMUMj4vkmrkEzrrxXQqQzvtb9cIghQgWZ0UFeCIVuD7CA==",
+  "dgSpecHash": "gh86BO7RFPyCKpiCg+C8Sk5NX0SJNuMhZc1R71s+liUbfJac3TORDQIjcvw8U+lxXUVU1IxiFZsusbQ+oucVRA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\ShellHolder\\ShellHolder.csproj",
   "expectedPackageFiles": [
@@ -37,7 +37,7 @@
     "C:\\Users\\Joshua\\.nuget\\packages\\microsoft.wsman.management\\7.2.1\\microsoft.wsman.management.7.2.1.nupkg.sha512",
     "C:\\Users\\Joshua\\.nuget\\packages\\microsoft.wsman.runtime\\7.2.1\\microsoft.wsman.runtime.7.2.1.nupkg.sha512",
     "C:\\Users\\Joshua\\.nuget\\packages\\namotion.reflection\\2.0.3\\namotion.reflection.2.0.3.nupkg.sha512",
-    "C:\\Users\\Joshua\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\Joshua\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Joshua\\.nuget\\packages\\njsonschema\\10.5.2\\njsonschema.10.5.2.nupkg.sha512",
     "C:\\Users\\Joshua\\.nuget\\packages\\runtime.linux-arm.runtime.native.system.io.ports\\6.0.0\\runtime.linux-arm.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
     "C:\\Users\\Joshua\\.nuget\\packages\\runtime.linux-arm64.runtime.native.system.io.ports\\6.0.0\\runtime.linux-arm64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",

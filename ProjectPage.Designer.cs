@@ -33,6 +33,7 @@
             this.stopScriptButton = new ShellHolder.Controls.CustomButton();
             this.saveButton = new ShellHolder.Controls.CustomButton();
             this.homeButton = new ShellHolder.Controls.CustomButton();
+            this.syntaxHighlightButton = new ShellHolder.Controls.CustomButton();
             this.mainContainer = new System.Windows.Forms.SplitContainer();
             this.textBox = new FastColoredTextBoxNS.FastColoredTextBox();
             this.consoleBox = new System.Windows.Forms.RichTextBox();
@@ -72,7 +73,7 @@
             // 
             // quickButtonLayout1
             // 
-            this.quickButtonLayout1.ColumnCount = 7;
+            this.quickButtonLayout1.ColumnCount = 9;
             this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
@@ -80,10 +81,13 @@
             this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.quickButtonLayout1.Controls.Add(this.startScriptButton, 0, 0);
             this.quickButtonLayout1.Controls.Add(this.stopScriptButton, 1, 0);
             this.quickButtonLayout1.Controls.Add(this.saveButton, 3, 0);
-            this.quickButtonLayout1.Controls.Add(this.homeButton, 5, 0);
+            this.quickButtonLayout1.Controls.Add(this.homeButton, 7, 0);
+            this.quickButtonLayout1.Controls.Add(this.syntaxHighlightButton, 5, 0);
             this.quickButtonLayout1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.quickButtonLayout1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.quickButtonLayout1.Location = new System.Drawing.Point(0, 0);
@@ -190,6 +194,30 @@
             this.homeButton.UseVisualStyleBackColor = false;
             this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
             // 
+            // syntaxHighlightButton
+            // 
+            this.syntaxHighlightButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.syntaxHighlightButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
+            this.syntaxHighlightButton.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
+            this.syntaxHighlightButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.syntaxHighlightButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.syntaxHighlightButton.BorderRadius = 8;
+            this.syntaxHighlightButton.BorderSize = 3;
+            this.syntaxHighlightButton.FlatAppearance.BorderSize = 0;
+            this.syntaxHighlightButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.syntaxHighlightButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.syntaxHighlightButton.HoverToolTip = "Click to enable or disable syntax highlighting.";
+            this.syntaxHighlightButton.ImageIcon = null;
+            this.syntaxHighlightButton.ImagePadding = 7;
+            this.syntaxHighlightButton.Location = new System.Drawing.Point(962, 2);
+            this.syntaxHighlightButton.Margin = new System.Windows.Forms.Padding(0);
+            this.syntaxHighlightButton.Name = "syntaxHighlightButton";
+            this.syntaxHighlightButton.Size = new System.Drawing.Size(35, 35);
+            this.syntaxHighlightButton.TabIndex = 9;
+            this.syntaxHighlightButton.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.syntaxHighlightButton.UseVisualStyleBackColor = false;
+            this.syntaxHighlightButton.Click += new System.EventHandler(this.syntaxHighlight_Click);
+            // 
             // mainContainer
             // 
             this.mainContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -206,8 +234,8 @@
             // mainContainer.Panel2
             // 
             this.mainContainer.Panel2.Controls.Add(this.consoleBox);
-            this.mainContainer.Size = new System.Drawing.Size(1080, 722);
-            this.mainContainer.SplitterDistance = 440;
+            this.mainContainer.Size = new System.Drawing.Size(1080, 746);
+            this.mainContainer.SplitterDistance = 448;
             this.mainContainer.TabIndex = 3;
             // 
             // textBox
@@ -240,7 +268,7 @@
             this.textBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.textBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("textBox.ServiceColors")));
             this.textBox.ShowFoldingLines = true;
-            this.textBox.Size = new System.Drawing.Size(1080, 440);
+            this.textBox.Size = new System.Drawing.Size(1080, 448);
             this.textBox.TabIndex = 1;
             this.textBox.Zoom = 100;
             // 
@@ -253,7 +281,7 @@
             this.consoleBox.Name = "consoleBox";
             this.consoleBox.ReadOnly = true;
             this.consoleBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.consoleBox.Size = new System.Drawing.Size(1080, 278);
+            this.consoleBox.Size = new System.Drawing.Size(1080, 294);
             this.consoleBox.TabIndex = 0;
             this.consoleBox.Text = "";
             // 
@@ -289,7 +317,7 @@
         private Controls.CustomButton startScriptButton;
         private Controls.CustomButton stopScriptButton;
         private Controls.CustomButton saveButton;
-        private Controls.CustomButton customButton1;
+        private Controls.CustomButton syntaxHighlightButton;
         private Controls.CustomButton homeButton;
     }
 }
