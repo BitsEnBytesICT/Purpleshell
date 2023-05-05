@@ -219,3 +219,4 @@ C:\Users\Joshua\Documents\Projects\Visual Studio\ShellHolder\bin\Debug\net6.0-wi
 C:\Users\Joshua\Documents\Projects\Visual Studio\ShellHolder\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\Joshua\Documents\Projects\Visual Studio\ShellHolder\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.ServiceProcess.ServiceController.dll
 C:\Users\Joshua\Documents\Projects\Visual Studio\ShellHolder\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Speech.dll
+C:\Users\Joshua\Documents\Projects\Visual Studio\ShellHolder\obj\Debug\net6.0-windows\ShellHolder.ProjectPage.resources
