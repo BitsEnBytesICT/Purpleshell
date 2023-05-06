@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gh86BO7RFPyCKpiCg+C8Sk5NX0SJNuMhZc1R71s+liUbfJac3TORDQIjcvw8U+lxXUVU1IxiFZsusbQ+oucVRA==",
+  "dgSpecHash": "ad9ohPfKyHanVE69dCIY59ErJxPWcVEfQbxxR76difuXroJKmd0gpEsel/R4IPfNvZt91UqR00FoKAAhP/8wHw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\ShellHolder\\ShellHolder.csproj",
+  "projectFilePath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\Purpleshell\\Purpleshell.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Joshua\\.nuget\\packages\\cake.powershell\\2.0.0\\cake.powershell.2.0.0.nupkg.sha512",
     "C:\\Users\\Joshua\\.nuget\\packages\\fctb\\2.16.24\\fctb.2.16.24.nupkg.sha512",
@@ -120,17 +120,18 @@
     "C:\\Users\\Joshua\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
     "C:\\Users\\Joshua\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\Joshua\\.nuget\\packages\\system.web.services.description\\4.9.0\\system.web.services.description.4.9.0.nupkg.sha512",
-    "C:\\Users\\Joshua\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
+    "C:\\Users\\Joshua\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Joshua\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.17763.28\\microsoft.windows.sdk.net.ref.10.0.17763.28.nupkg.sha512"
   ],
   "logs": [
     {
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'FCTB 2.16.24' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
+      "message": "Package 'FCTB 2.16.24' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows10.0.17763'. This package may not be fully compatible with your project.",
       "libraryId": "FCTB",
       "targetGraphs": [
-        "net6.0-windows7.0"
+        "net6.0-windows10.0.17763"
       ]
     }
   ]

@@ -63,7 +63,7 @@
             this.NewProjectButton.FlatAppearance.BorderSize = 0;
             this.NewProjectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.NewProjectButton.ForeColor = System.Drawing.Color.White;
-            this.NewProjectButton.ImageIcon = global::ShellHolder.Properties.Resources.NewProject;
+            this.NewProjectButton.ImageIcon = global::Purpleshell.Properties.Resources.NewProject;
             this.NewProjectButton.Location = new System.Drawing.Point(3, 3);
             this.NewProjectButton.Name = "NewProjectButton";
             this.NewProjectButton.SecondLine = "Start a new powershell project";
@@ -84,7 +84,7 @@
             this.ImportButton.FlatAppearance.BorderSize = 0;
             this.ImportButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ImportButton.ForeColor = System.Drawing.Color.White;
-            this.ImportButton.ImageIcon = global::ShellHolder.Properties.Resources.ImportProject;
+            this.ImportButton.ImageIcon = global::Purpleshell.Properties.Resources.ImportProject;
             this.ImportButton.Location = new System.Drawing.Point(3, 91);
             this.ImportButton.Name = "ImportButton";
             this.ImportButton.SecondLine = "Drag or click to import a script outside of ShellHolder";
@@ -132,7 +132,7 @@
             this.CloseStartupPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CloseStartupPage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.CloseStartupPage.HoverToolTip = "";
-            this.CloseStartupPage.ImageIcon = global::ShellHolder.Properties.Resources.X;
+            this.CloseStartupPage.ImageIcon = global::Purpleshell.Properties.Resources.X;
             this.CloseStartupPage.ImagePadding = 7;
             this.CloseStartupPage.Location = new System.Drawing.Point(1020, 540);
             this.CloseStartupPage.Name = "CloseStartupPage";
@@ -153,7 +153,7 @@
             this.RefreshButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RefreshButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.RefreshButton.HoverToolTip = "";
-            this.RefreshButton.ImageIcon = global::ShellHolder.Properties.Resources.Refresh;
+            this.RefreshButton.ImageIcon = global::Purpleshell.Properties.Resources.Refresh;
             this.RefreshButton.ImagePadding = 4;
             this.RefreshButton.Location = new System.Drawing.Point(546, 40);
             this.RefreshButton.Name = "RefreshButton";

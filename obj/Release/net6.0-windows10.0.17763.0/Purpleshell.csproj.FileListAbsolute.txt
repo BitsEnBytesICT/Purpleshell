@@ -1,0 +1,10 @@
+C:\Users\Joshua\Documents\Projects\Visual Studio\Purpleshell\obj\Release\net6.0-windows10.0.17763.0\Purpleshell.csproj.AssemblyReference.cache
+C:\Users\Joshua\Documents\Projects\Visual Studio\Purpleshell\obj\Release\net6.0-windows10.0.17763.0\ShellHolder.MainPage.resources
+C:\Users\Joshua\Documents\Projects\Visual Studio\Purpleshell\obj\Release\net6.0-windows10.0.17763.0\ShellHolder.ProjectPage.resources
+C:\Users\Joshua\Documents\Projects\Visual Studio\Purpleshell\obj\Release\net6.0-windows10.0.17763.0\Purpleshell.Properties.Resources.resources
+C:\Users\Joshua\Documents\Projects\Visual Studio\Purpleshell\obj\Release\net6.0-windows10.0.17763.0\ShellHolder.StartupPage.resources
+C:\Users\Joshua\Documents\Projects\Visual Studio\Purpleshell\obj\Release\net6.0-windows10.0.17763.0\Purpleshell.csproj.GenerateResource.cache
+C:\Users\Joshua\Documents\Projects\Visual Studio\Purpleshell\obj\Release\net6.0-windows10.0.17763.0\Purpleshell.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Joshua\Documents\Projects\Visual Studio\Purpleshell\obj\Release\net6.0-windows10.0.17763.0\Purpleshell.AssemblyInfoInputs.cache
+C:\Users\Joshua\Documents\Projects\Visual Studio\Purpleshell\obj\Release\net6.0-windows10.0.17763.0\Purpleshell.AssemblyInfo.cs
+C:\Users\Joshua\Documents\Projects\Visual Studio\Purpleshell\obj\Release\net6.0-windows10.0.17763.0\Purpleshell.csproj.CoreCompileInputs.cache
