@@ -1,14 +1,7 @@
-﻿using ShellHolder.Properties;
+﻿using Purpleshell.Properties;
 using ShellHolder.Util;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using static ShellHolder.Util.FileUtils;
 
 namespace ShellHolder.Controls
@@ -295,7 +288,6 @@ namespace ShellHolder.Controls
             /// ---
 
             pevent.Graphics.DrawLine(new Pen(new SolidBrush(Color.DimGray), 1), ClientRectangle.Width - contextWidth, 5, ClientRectangle.Width - contextWidth, ClientRectangle.Height - 6);
-            //Rectangle contextRect = new Rectangle(6, ClientRectangle.Height - lwHeight - 5, width, lwHeight);
             pevent.Graphics.DrawImage(new Bitmap(Resources.TripleDot, drawContext.Width, drawContext.Height), ClientRectangle.Width - drawContext.X, drawContext.Y, drawContext.Width, drawContext.Height);
 
 
@@ -369,13 +361,13 @@ namespace ShellHolder.Controls
                 str =  String.Format("{0} seconds ago", (int)timeDifference.TotalSeconds);
             }
             else if (timeDifference.TotalMinutes <= 60) {
-                str = String.Format("{0} minutes ago", (int)timeDifference.Minutes);
+                str = String.Format("{0} minutes ago", (int)timeDifference.TotalMinutes);
             }
-            else if (timeDifference.TotalHours <= 48) {
+            else if (timeDifference.TotalHours <= 24) {
                 str = String.Format("{0} hours ago", (int)timeDifference.TotalHours);
             }
             else if (timeDifference.TotalDays <= 30) {
-                str = String.Format("{0} days ago", (int)timeDifference.Days);
+                str = String.Format("{0} day{1} ago", (int)timeDifference.TotalDays, timeDifference.TotalDays >= 2 ? "s" : "");
             }
             else if (timeDifference.TotalDays > 36500) {
                 return "MORE THEN A CENTURY AGO?! BRO WHAT";

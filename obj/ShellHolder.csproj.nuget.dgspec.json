@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\ShellHolder\\ShellHolder.csproj": {}
+    "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\Purpleshell\\ShellHolder.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\ShellHolder\\ShellHolder.csproj": {
+    "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\Purpleshell\\ShellHolder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\ShellHolder\\ShellHolder.csproj",
+        "projectUniqueName": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\Purpleshell\\ShellHolder.csproj",
         "projectName": "ShellHolder",
-        "projectPath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\ShellHolder\\ShellHolder.csproj",
+        "projectPath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\Purpleshell\\ShellHolder.csproj",
         "packagesPath": "C:\\Users\\Joshua\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\ShellHolder\\obj\\",
+        "outputPath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\Purpleshell\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

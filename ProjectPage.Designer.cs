@@ -111,7 +111,7 @@
             this.startScriptButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startScriptButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.startScriptButton.HoverToolTip = "Click to start script.";
-            this.startScriptButton.ImageIcon = global::ShellHolder.Properties.Resources.Start;
+            this.startScriptButton.ImageIcon = global::Purpleshell.Properties.Resources.Start;
             this.startScriptButton.ImagePadding = 11;
             this.startScriptButton.Location = new System.Drawing.Point(2, 2);
             this.startScriptButton.Margin = new System.Windows.Forms.Padding(0);
@@ -135,7 +135,7 @@
             this.stopScriptButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.stopScriptButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.stopScriptButton.HoverToolTip = "Click to stop the running script.";
-            this.stopScriptButton.ImageIcon = global::ShellHolder.Properties.Resources.Stop;
+            this.stopScriptButton.ImageIcon = global::Purpleshell.Properties.Resources.Stop;
             this.stopScriptButton.ImagePadding = 11;
             this.stopScriptButton.Location = new System.Drawing.Point(42, 2);
             this.stopScriptButton.Margin = new System.Windows.Forms.Padding(0);
@@ -159,7 +159,7 @@
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.saveButton.HoverToolTip = "Click to save or use Ctrl + S.";
-            this.saveButton.ImageIcon = global::ShellHolder.Properties.Resources.Save;
+            this.saveButton.ImageIcon = global::Purpleshell.Properties.Resources.Save;
             this.saveButton.ImagePadding = 10;
             this.saveButton.Location = new System.Drawing.Point(92, 2);
             this.saveButton.Margin = new System.Windows.Forms.Padding(0);
@@ -183,7 +183,7 @@
             this.homeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.homeButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.homeButton.HoverToolTip = "Click to open the startup page.";
-            this.homeButton.ImageIcon = global::ShellHolder.Properties.Resources.Home;
+            this.homeButton.ImageIcon = global::Purpleshell.Properties.Resources.Home;
             this.homeButton.ImagePadding = 7;
             this.homeButton.Location = new System.Drawing.Point(1022, 2);
             this.homeButton.Margin = new System.Windows.Forms.Padding(0);

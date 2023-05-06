@@ -1,8 +1,7 @@
-using ShellHolder.Properties;
+using Purpleshell.Properties;
 using ShellHolder.Util;
 using System.Diagnostics;
 using static ShellHolder.Util.FileUtils;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ShellHolder
 {

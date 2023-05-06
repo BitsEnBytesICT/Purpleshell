@@ -80,6 +80,13 @@ namespace ShellHolder.Util
                         ex.StackTrace + Environment.NewLine);
         }
 
+        public static void ExceptionMessageBox(string message, Exception ex) {
+            MessageBox.Show(
+                        message + Environment.NewLine + Environment.NewLine +
+                        ex.Message + Environment.NewLine +
+                        ex.StackTrace + Environment.NewLine);
+        }
+
         public static void LoadProjectFromDirectory(Project project, bool newProject) {
 
             if (!newProject) {

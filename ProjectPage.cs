@@ -1,5 +1,5 @@
 ﻿using FastColoredTextBoxNS;
-using ShellHolder.Properties;
+using Purpleshell.Properties;
 using ShellHolder.Util;
 using System.ComponentModel;
 using System.Diagnostics;
