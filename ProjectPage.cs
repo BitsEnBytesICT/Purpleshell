@@ -1,5 +1,6 @@
 ﻿using FastColoredTextBoxNS;
 using Purpleshell.Properties;
+using ShellHolder.Controls;
 using ShellHolder.Util;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -16,9 +17,12 @@ namespace ShellHolder
 
 
         /// The background worker for processing scripts.
-        public BackgroundWorker worker = new BackgroundWorker();
+        private BackgroundWorker worker = new BackgroundWorker();
+        private PowerShell runspace = null;
 
         public bool isSaved = true;
+
+        private bool looping = false;
 
         public ProjectPage(Project projectRef) {
             InitializeComponent();
@@ -29,7 +33,7 @@ namespace ShellHolder
 
 
             project = projectRef;
-            
+
             /// Initialize backroundworker
             worker.WorkerReportsProgress = true;
             worker.WorkerSupportsCancellation = true;
@@ -45,8 +49,9 @@ namespace ShellHolder
             SaveButtonEnable(false);
 
 
-            /// Syntax button
-            SetSyntaxButtonImage(SettingsUtil.IsSyntaxHighlightEnabled());
+            /// Set custom buttons
+            SetButtonImage(syntaxHighlightButton, SettingsUtil.IsSyntaxHighlightEnabled() ? Resources.SyntaxEnabled : Resources.SyntaxDisabled);
+            SetButtonImage(loopingButton, looping ? Resources.LoopingEnabled : Resources.LoopingDisabled);
 
 
 
@@ -98,7 +103,7 @@ namespace ShellHolder
         Regex hereStringPattern = new Regex(@"(@['""]{1,2})(.*?)\1", RegexOptions.Singleline);
 
 
-        private void TextBox_TextChanged(object? sender, FastColoredTextBoxNS.TextChangedEventArgs e) {
+        private void TextBox_TextChanged(object? sender, TextChangedEventArgs e) {
 
             e.ChangedRange.ClearStyle(StyleIndex.All);
 
@@ -191,15 +196,14 @@ namespace ShellHolder
 
                 string script = textBox.Text;
 
-                consoleBox.Text = "";
-                ScriptButtonRunning(true);
+                if (!looping)
+                    consoleBox.Text = "";
 
-                reason = null;
+                ScriptButtonRunning(true);
 
                 worker.RunWorkerAsync(script);
 
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 ProjectUtil.ExceptionMessageBox("A problem has occured with the backgroundworker dowork.", ex);
             }
         }
@@ -209,9 +213,6 @@ namespace ShellHolder
             if (project == null)
                 return;
 
-            if (!worker.IsBusy)
-                return;
-            
             worker.CancelAsync();
         }
 
@@ -226,13 +227,16 @@ namespace ShellHolder
                 BackgroundWorker worker = sender as BackgroundWorker;
 
                 /// Create powershell runspace, to run the script in its own enviroment.
-                PowerShell runspace = PowerShell.Create();
+                runspace = PowerShell.Create();
                 runspace.AddScript(script);
 
                 /// Make an console output event handler that handles its output back on the main thread via the reportprogress backgroundworker.
                 PSDataCollection<PSObject> output = new PSDataCollection<PSObject>();
                 output.DataAdded += (sender, e) => {
                     if (sender == null || worker == null) return;
+
+                    if (!worker.IsBusy)
+                        return;
 
                     PSObject newRecord = ((PSDataCollection<PSObject>)sender)[e.Index];
                     string recordString = newRecord.ToString();
@@ -241,43 +245,37 @@ namespace ShellHolder
 
                 /// Start the runspace and keep running until end is declared.
                 runspace.BeginInvoke<PSObject, PSObject>(null, output);
-                int i = 0;
                 while (runspace.InvocationStateInfo.State == PSInvocationState.Running) {
 
                     /// Slow down thread to increase performance.
                     Thread.Sleep(100);
 
 
-                    state = runspace.InvocationStateInfo.State;
-                    reason = runspace.InvocationStateInfo.Reason;
-
-
-                    if (worker == null) return;
+                    if (worker == null) break;
 
                     /// If any errors occur during runtime of runspace, report the error and stop outside shell (backgroundworker) by throwing an exception which will be caught outside of the thread.
                     if (runspace.HadErrors) {
                         worker.ReportProgress(400, runspace.Streams.Error);
-                        throw new InvalidOperationException();
+                        break;
                     }
 
                     /// If the user requested to cancel the worker, the do this immediatly. This will destroy the runspace and put the worker in an non use state.
                     if (worker.CancellationPending) {
                         e.Cancel = true;
-                        return;
+                        break;
                     }
                 }
-            }
-            catch (Exception ex) {
+
+            } catch (Exception ex) {
                 if (ex is InvalidOperationException) {
 
-                }
-                else
+                } else
                     ProjectUtil.ExceptionMessageBox("A problem has occured with the backgroundworker dowork.", ex);
             }
         }
 
-        public PSInvocationState state = PSInvocationState.Running;
-        public Exception reason = null;
+        /*public PSInvocationState state = PSInvocationState.Running;
+        public Exception reason = null;*/
 
         private void Worker_ProgressChanged(object? sender, ProgressChangedEventArgs e) {
 
@@ -299,8 +297,7 @@ namespace ShellHolder
                         AddToConsole(text, Color.White);
                     }
                 }
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 ProjectUtil.ExceptionMessageBox("A problem has occured with the backgroundworker dowork.", ex);
             }
         }
@@ -320,21 +317,30 @@ namespace ShellHolder
         }
 
         private void Worker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e) {
-            AddToConsole(Environment.NewLine + "Powershell state: " + state, Color.Yellow);
+            AddToConsole(Environment.NewLine + "Powershell state: " + runspace.InvocationStateInfo.State, Color.Yellow);
 
-            if (reason != null)
-                AddToConsole(reason.ToString(), Color.Yellow);
+            if (runspace.InvocationStateInfo.Reason != null)
+                AddToConsole(runspace.InvocationStateInfo.Reason.ToString(), Color.LightYellow);
 
             if (e.Error != null) {
                 AddToConsole("Backworker: Error occurred!", Color.Red);
-            }
-            else if (e.Cancelled) {
+                ScriptButtonRunning(false);
+            } else if (e.Cancelled) {
                 AddToConsole("Backworker: Cancelled!", Color.Orange);
-            }
-            else
+                ScriptButtonRunning(false);
+            } else {
                 AddToConsole("Backworker: Success!", Color.LimeGreen);
 
-            ScriptButtonRunning(false);
+                if (!looping) {
+                    ScriptButtonRunning(false);
+                } else {
+
+                    Thread.Sleep(500);
+                    AddToConsole("Looping ↻", Color.Pink);
+                    AddToConsole("");
+                    startScript_Click(null, null);
+                }
+            }
         }
 
         public void ScriptButtonRunning(bool enable) {
@@ -372,12 +378,16 @@ namespace ShellHolder
 
         private void syntaxHighlight_Click(object sender, EventArgs e) {
             bool enabled = !SettingsUtil.IsSyntaxHighlightEnabled();
-            SetSyntaxButtonImage(enabled);
+            SetButtonImage(syntaxHighlightButton, enabled ? Resources.SyntaxEnabled : Resources.SyntaxDisabled);
             SettingsUtil.SetSyntaxHighlight(enabled);
         }
 
-        private void SetSyntaxButtonImage(bool enabled) {
-            syntaxHighlightButton.ImageIcon = (enabled ? Resources.SyntaxEnabled : Resources.SyntaxDisabled);
+        private void looping_Click(object sender, EventArgs e) {
+            looping = !looping;
+            SetButtonImage(loopingButton, looping ? Resources.LoopingEnabled : Resources.LoopingDisabled);
+        }
+        private void SetButtonImage(CustomButton button, Bitmap resource) {
+            button.ImageIcon = resource;
         }
     }
 }

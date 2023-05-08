@@ -83,6 +83,26 @@ namespace Purpleshell.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LoopingDisabled {
+            get {
+                object obj = ResourceManager.GetObject("LoopingDisabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoopingEnabled {
+            get {
+                object obj = ResourceManager.GetObject("LoopingEnabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NewProject {
             get {
                 object obj = ResourceManager.GetObject("NewProject", resourceCulture);

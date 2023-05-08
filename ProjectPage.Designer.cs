@@ -25,285 +25,300 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectPage));
-            this.baseContainer = new System.Windows.Forms.SplitContainer();
-            this.quickButtonLayout1 = new System.Windows.Forms.TableLayoutPanel();
-            this.startScriptButton = new ShellHolder.Controls.CustomButton();
-            this.stopScriptButton = new ShellHolder.Controls.CustomButton();
-            this.saveButton = new ShellHolder.Controls.CustomButton();
-            this.homeButton = new ShellHolder.Controls.CustomButton();
-            this.syntaxHighlightButton = new ShellHolder.Controls.CustomButton();
-            this.mainContainer = new System.Windows.Forms.SplitContainer();
-            this.textBox = new FastColoredTextBoxNS.FastColoredTextBox();
-            this.consoleBox = new System.Windows.Forms.RichTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.baseContainer)).BeginInit();
-            this.baseContainer.Panel1.SuspendLayout();
-            this.baseContainer.Panel2.SuspendLayout();
-            this.baseContainer.SuspendLayout();
-            this.quickButtonLayout1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).BeginInit();
-            this.mainContainer.Panel1.SuspendLayout();
-            this.mainContainer.Panel2.SuspendLayout();
-            this.mainContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textBox)).BeginInit();
-            this.SuspendLayout();
+            baseContainer = new SplitContainer();
+            quickButtonLayout1 = new TableLayoutPanel();
+            startScriptButton = new Controls.CustomButton();
+            stopScriptButton = new Controls.CustomButton();
+            saveButton = new Controls.CustomButton();
+            homeButton = new Controls.CustomButton();
+            syntaxHighlightButton = new Controls.CustomButton();
+            loopingButton = new Controls.CustomButton();
+            mainContainer = new SplitContainer();
+            textBox = new FastColoredTextBoxNS.FastColoredTextBox();
+            consoleBox = new RichTextBox();
+            ((System.ComponentModel.ISupportInitialize)baseContainer).BeginInit();
+            baseContainer.Panel1.SuspendLayout();
+            baseContainer.Panel2.SuspendLayout();
+            baseContainer.SuspendLayout();
+            quickButtonLayout1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)mainContainer).BeginInit();
+            mainContainer.Panel1.SuspendLayout();
+            mainContainer.Panel2.SuspendLayout();
+            mainContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)textBox).BeginInit();
+            SuspendLayout();
             // 
             // baseContainer
             // 
-            this.baseContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.baseContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.baseContainer.IsSplitterFixed = true;
-            this.baseContainer.Location = new System.Drawing.Point(0, 0);
-            this.baseContainer.Margin = new System.Windows.Forms.Padding(0);
-            this.baseContainer.Name = "baseContainer";
-            this.baseContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            baseContainer.Dock = DockStyle.Fill;
+            baseContainer.FixedPanel = FixedPanel.Panel1;
+            baseContainer.IsSplitterFixed = true;
+            baseContainer.Location = new Point(0, 0);
+            baseContainer.Margin = new Padding(0);
+            baseContainer.Name = "baseContainer";
+            baseContainer.Orientation = Orientation.Horizontal;
             // 
             // baseContainer.Panel1
             // 
-            this.baseContainer.Panel1.Controls.Add(this.quickButtonLayout1);
+            baseContainer.Panel1.Controls.Add(quickButtonLayout1);
             // 
             // baseContainer.Panel2
             // 
-            this.baseContainer.Panel2.Controls.Add(this.mainContainer);
-            this.baseContainer.Size = new System.Drawing.Size(1080, 720);
-            this.baseContainer.SplitterDistance = 40;
-            this.baseContainer.SplitterWidth = 1;
-            this.baseContainer.TabIndex = 0;
+            baseContainer.Panel2.Controls.Add(mainContainer);
+            baseContainer.Size = new Size(1080, 720);
+            baseContainer.SplitterDistance = 40;
+            baseContainer.SplitterWidth = 1;
+            baseContainer.TabIndex = 0;
             // 
             // quickButtonLayout1
             // 
-            this.quickButtonLayout1.ColumnCount = 9;
-            this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-            this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.quickButtonLayout1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.quickButtonLayout1.Controls.Add(this.startScriptButton, 0, 0);
-            this.quickButtonLayout1.Controls.Add(this.stopScriptButton, 1, 0);
-            this.quickButtonLayout1.Controls.Add(this.saveButton, 3, 0);
-            this.quickButtonLayout1.Controls.Add(this.homeButton, 7, 0);
-            this.quickButtonLayout1.Controls.Add(this.syntaxHighlightButton, 5, 0);
-            this.quickButtonLayout1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.quickButtonLayout1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.quickButtonLayout1.Location = new System.Drawing.Point(0, 0);
-            this.quickButtonLayout1.Margin = new System.Windows.Forms.Padding(0);
-            this.quickButtonLayout1.Name = "quickButtonLayout1";
-            this.quickButtonLayout1.RowCount = 1;
-            this.quickButtonLayout1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.quickButtonLayout1.Size = new System.Drawing.Size(1080, 40);
-            this.quickButtonLayout1.TabIndex = 5;
+            quickButtonLayout1.ColumnCount = 10;
+            quickButtonLayout1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+            quickButtonLayout1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+            quickButtonLayout1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10F));
+            quickButtonLayout1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+            quickButtonLayout1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            quickButtonLayout1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+            quickButtonLayout1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+            quickButtonLayout1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
+            quickButtonLayout1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+            quickButtonLayout1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
+            quickButtonLayout1.Controls.Add(startScriptButton, 0, 0);
+            quickButtonLayout1.Controls.Add(stopScriptButton, 1, 0);
+            quickButtonLayout1.Controls.Add(saveButton, 3, 0);
+            quickButtonLayout1.Controls.Add(homeButton, 8, 0);
+            quickButtonLayout1.Controls.Add(syntaxHighlightButton, 6, 0);
+            quickButtonLayout1.Controls.Add(loopingButton, 5, 0);
+            quickButtonLayout1.Dock = DockStyle.Fill;
+            quickButtonLayout1.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
+            quickButtonLayout1.Location = new Point(0, 0);
+            quickButtonLayout1.Margin = new Padding(0);
+            quickButtonLayout1.Name = "quickButtonLayout1";
+            quickButtonLayout1.RowCount = 1;
+            quickButtonLayout1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            quickButtonLayout1.Size = new Size(1080, 40);
+            quickButtonLayout1.TabIndex = 5;
             // 
             // startScriptButton
             // 
-            this.startScriptButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.startScriptButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
-            this.startScriptButton.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
-            this.startScriptButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.startScriptButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
-            this.startScriptButton.BorderRadius = 8;
-            this.startScriptButton.BorderSize = 3;
-            this.startScriptButton.FlatAppearance.BorderSize = 0;
-            this.startScriptButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.startScriptButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.startScriptButton.HoverToolTip = "Click to start script.";
-            this.startScriptButton.ImageIcon = global::Purpleshell.Properties.Resources.Start;
-            this.startScriptButton.ImagePadding = 11;
-            this.startScriptButton.Location = new System.Drawing.Point(2, 2);
-            this.startScriptButton.Margin = new System.Windows.Forms.Padding(0);
-            this.startScriptButton.Name = "startScriptButton";
-            this.startScriptButton.Size = new System.Drawing.Size(35, 35);
-            this.startScriptButton.TabIndex = 3;
-            this.startScriptButton.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.startScriptButton.UseVisualStyleBackColor = false;
-            this.startScriptButton.Click += new System.EventHandler(this.startScript_Click);
+            startScriptButton.Anchor = AnchorStyles.None;
+            startScriptButton.BackColor = Color.FromArgb(100, 120, 120, 120);
+            startScriptButton.BackgroundColor = Color.FromArgb(100, 120, 120, 120);
+            startScriptButton.BackgroundImageLayout = ImageLayout.Center;
+            startScriptButton.BorderColor = Color.FromArgb(100, 130, 130, 130);
+            startScriptButton.BorderRadius = 8;
+            startScriptButton.BorderSize = 3;
+            startScriptButton.FlatAppearance.BorderSize = 0;
+            startScriptButton.FlatStyle = FlatStyle.Flat;
+            startScriptButton.ForeColor = Color.FromArgb(100, 255, 255, 255);
+            startScriptButton.HoverToolTip = "Click to start script.";
+            startScriptButton.ImageIcon = Purpleshell.Properties.Resources.Start;
+            startScriptButton.ImagePadding = 11;
+            startScriptButton.Location = new Point(2, 2);
+            startScriptButton.Margin = new Padding(0);
+            startScriptButton.Name = "startScriptButton";
+            startScriptButton.Size = new Size(35, 35);
+            startScriptButton.TabIndex = 3;
+            startScriptButton.TextColor = Color.FromArgb(100, 255, 255, 255);
+            startScriptButton.UseVisualStyleBackColor = false;
+            startScriptButton.Click += startScript_Click;
             // 
             // stopScriptButton
             // 
-            this.stopScriptButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.stopScriptButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
-            this.stopScriptButton.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
-            this.stopScriptButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.stopScriptButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
-            this.stopScriptButton.BorderRadius = 8;
-            this.stopScriptButton.BorderSize = 3;
-            this.stopScriptButton.FlatAppearance.BorderSize = 0;
-            this.stopScriptButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.stopScriptButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.stopScriptButton.HoverToolTip = "Click to stop the running script.";
-            this.stopScriptButton.ImageIcon = global::Purpleshell.Properties.Resources.Stop;
-            this.stopScriptButton.ImagePadding = 11;
-            this.stopScriptButton.Location = new System.Drawing.Point(42, 2);
-            this.stopScriptButton.Margin = new System.Windows.Forms.Padding(0);
-            this.stopScriptButton.Name = "stopScriptButton";
-            this.stopScriptButton.Size = new System.Drawing.Size(35, 35);
-            this.stopScriptButton.TabIndex = 5;
-            this.stopScriptButton.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.stopScriptButton.UseVisualStyleBackColor = false;
-            this.stopScriptButton.Click += new System.EventHandler(this.stopScriptButton_Click);
+            stopScriptButton.Anchor = AnchorStyles.None;
+            stopScriptButton.BackColor = Color.FromArgb(100, 120, 120, 120);
+            stopScriptButton.BackgroundColor = Color.FromArgb(100, 120, 120, 120);
+            stopScriptButton.BackgroundImageLayout = ImageLayout.Center;
+            stopScriptButton.BorderColor = Color.FromArgb(100, 130, 130, 130);
+            stopScriptButton.BorderRadius = 8;
+            stopScriptButton.BorderSize = 3;
+            stopScriptButton.FlatAppearance.BorderSize = 0;
+            stopScriptButton.FlatStyle = FlatStyle.Flat;
+            stopScriptButton.ForeColor = Color.FromArgb(100, 255, 255, 255);
+            stopScriptButton.HoverToolTip = "Click to stop the running script.";
+            stopScriptButton.ImageIcon = Purpleshell.Properties.Resources.Stop;
+            stopScriptButton.ImagePadding = 11;
+            stopScriptButton.Location = new Point(42, 2);
+            stopScriptButton.Margin = new Padding(0);
+            stopScriptButton.Name = "stopScriptButton";
+            stopScriptButton.Size = new Size(35, 35);
+            stopScriptButton.TabIndex = 5;
+            stopScriptButton.TextColor = Color.FromArgb(100, 255, 255, 255);
+            stopScriptButton.UseVisualStyleBackColor = false;
+            stopScriptButton.Click += stopScriptButton_Click;
             // 
             // saveButton
             // 
-            this.saveButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.saveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
-            this.saveButton.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
-            this.saveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.saveButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
-            this.saveButton.BorderRadius = 8;
-            this.saveButton.BorderSize = 3;
-            this.saveButton.FlatAppearance.BorderSize = 0;
-            this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.saveButton.HoverToolTip = "Click to save or use Ctrl + S.";
-            this.saveButton.ImageIcon = global::Purpleshell.Properties.Resources.Save;
-            this.saveButton.ImagePadding = 10;
-            this.saveButton.Location = new System.Drawing.Point(92, 2);
-            this.saveButton.Margin = new System.Windows.Forms.Padding(0);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(35, 35);
-            this.saveButton.TabIndex = 7;
-            this.saveButton.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.saveButton.UseVisualStyleBackColor = false;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            saveButton.Anchor = AnchorStyles.None;
+            saveButton.BackColor = Color.FromArgb(100, 120, 120, 120);
+            saveButton.BackgroundColor = Color.FromArgb(100, 120, 120, 120);
+            saveButton.BackgroundImageLayout = ImageLayout.Center;
+            saveButton.BorderColor = Color.FromArgb(100, 130, 130, 130);
+            saveButton.BorderRadius = 8;
+            saveButton.BorderSize = 3;
+            saveButton.FlatAppearance.BorderSize = 0;
+            saveButton.FlatStyle = FlatStyle.Flat;
+            saveButton.ForeColor = Color.FromArgb(100, 255, 255, 255);
+            saveButton.HoverToolTip = "Click to save or use Ctrl + S.";
+            saveButton.ImageIcon = Purpleshell.Properties.Resources.Save;
+            saveButton.ImagePadding = 10;
+            saveButton.Location = new Point(92, 2);
+            saveButton.Margin = new Padding(0);
+            saveButton.Name = "saveButton";
+            saveButton.Size = new Size(35, 35);
+            saveButton.TabIndex = 7;
+            saveButton.TextColor = Color.FromArgb(100, 255, 255, 255);
+            saveButton.UseVisualStyleBackColor = false;
+            saveButton.Click += saveButton_Click;
             // 
             // homeButton
             // 
-            this.homeButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.homeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
-            this.homeButton.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
-            this.homeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.homeButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
-            this.homeButton.BorderRadius = 8;
-            this.homeButton.BorderSize = 3;
-            this.homeButton.FlatAppearance.BorderSize = 0;
-            this.homeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.homeButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.homeButton.HoverToolTip = "Click to open the startup page.";
-            this.homeButton.ImageIcon = global::Purpleshell.Properties.Resources.Home;
-            this.homeButton.ImagePadding = 7;
-            this.homeButton.Location = new System.Drawing.Point(1022, 2);
-            this.homeButton.Margin = new System.Windows.Forms.Padding(0);
-            this.homeButton.Name = "homeButton";
-            this.homeButton.Size = new System.Drawing.Size(35, 35);
-            this.homeButton.TabIndex = 8;
-            this.homeButton.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.homeButton.UseVisualStyleBackColor = false;
-            this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
+            homeButton.Anchor = AnchorStyles.None;
+            homeButton.BackColor = Color.FromArgb(100, 120, 120, 120);
+            homeButton.BackgroundColor = Color.FromArgb(100, 120, 120, 120);
+            homeButton.BackgroundImageLayout = ImageLayout.Center;
+            homeButton.BorderColor = Color.FromArgb(100, 130, 130, 130);
+            homeButton.BorderRadius = 8;
+            homeButton.BorderSize = 3;
+            homeButton.FlatAppearance.BorderSize = 0;
+            homeButton.FlatStyle = FlatStyle.Flat;
+            homeButton.ForeColor = Color.FromArgb(100, 255, 255, 255);
+            homeButton.HoverToolTip = "Click to open the startup page.";
+            homeButton.ImageIcon = Purpleshell.Properties.Resources.Home;
+            homeButton.ImagePadding = 7;
+            homeButton.Location = new Point(1012, 2);
+            homeButton.Margin = new Padding(0);
+            homeButton.Name = "homeButton";
+            homeButton.Size = new Size(35, 35);
+            homeButton.TabIndex = 8;
+            homeButton.TextColor = Color.FromArgb(100, 255, 255, 255);
+            homeButton.UseVisualStyleBackColor = false;
+            homeButton.Click += homeButton_Click;
             // 
             // syntaxHighlightButton
             // 
-            this.syntaxHighlightButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.syntaxHighlightButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
-            this.syntaxHighlightButton.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
-            this.syntaxHighlightButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.syntaxHighlightButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
-            this.syntaxHighlightButton.BorderRadius = 8;
-            this.syntaxHighlightButton.BorderSize = 3;
-            this.syntaxHighlightButton.FlatAppearance.BorderSize = 0;
-            this.syntaxHighlightButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.syntaxHighlightButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.syntaxHighlightButton.HoverToolTip = "Click to enable or disable syntax highlighting.";
-            this.syntaxHighlightButton.ImageIcon = null;
-            this.syntaxHighlightButton.ImagePadding = 7;
-            this.syntaxHighlightButton.Location = new System.Drawing.Point(962, 2);
-            this.syntaxHighlightButton.Margin = new System.Windows.Forms.Padding(0);
-            this.syntaxHighlightButton.Name = "syntaxHighlightButton";
-            this.syntaxHighlightButton.Size = new System.Drawing.Size(35, 35);
-            this.syntaxHighlightButton.TabIndex = 9;
-            this.syntaxHighlightButton.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.syntaxHighlightButton.UseVisualStyleBackColor = false;
-            this.syntaxHighlightButton.Click += new System.EventHandler(this.syntaxHighlight_Click);
+            syntaxHighlightButton.Anchor = AnchorStyles.None;
+            syntaxHighlightButton.BackColor = Color.FromArgb(100, 120, 120, 120);
+            syntaxHighlightButton.BackgroundColor = Color.FromArgb(100, 120, 120, 120);
+            syntaxHighlightButton.BackgroundImageLayout = ImageLayout.Center;
+            syntaxHighlightButton.BorderColor = Color.FromArgb(100, 130, 130, 130);
+            syntaxHighlightButton.BorderRadius = 8;
+            syntaxHighlightButton.BorderSize = 3;
+            syntaxHighlightButton.FlatAppearance.BorderSize = 0;
+            syntaxHighlightButton.FlatStyle = FlatStyle.Flat;
+            syntaxHighlightButton.ForeColor = Color.FromArgb(100, 255, 255, 255);
+            syntaxHighlightButton.HoverToolTip = "Click to enable or disable syntax highlighting.";
+            syntaxHighlightButton.ImageIcon = null;
+            syntaxHighlightButton.ImagePadding = 7;
+            syntaxHighlightButton.Location = new Point(912, 2);
+            syntaxHighlightButton.Margin = new Padding(0);
+            syntaxHighlightButton.Name = "syntaxHighlightButton";
+            syntaxHighlightButton.Size = new Size(35, 35);
+            syntaxHighlightButton.TabIndex = 9;
+            syntaxHighlightButton.TextColor = Color.FromArgb(100, 255, 255, 255);
+            syntaxHighlightButton.UseVisualStyleBackColor = false;
+            syntaxHighlightButton.Click += syntaxHighlight_Click;
+            // 
+            // loopingButton
+            // 
+            loopingButton.Anchor = AnchorStyles.None;
+            loopingButton.BackColor = Color.FromArgb(100, 120, 120, 120);
+            loopingButton.BackgroundColor = Color.FromArgb(100, 120, 120, 120);
+            loopingButton.BackgroundImageLayout = ImageLayout.Center;
+            loopingButton.BorderColor = Color.FromArgb(100, 130, 130, 130);
+            loopingButton.BorderRadius = 8;
+            loopingButton.BorderSize = 3;
+            loopingButton.FlatAppearance.BorderSize = 0;
+            loopingButton.FlatStyle = FlatStyle.Flat;
+            loopingButton.ForeColor = Color.FromArgb(100, 255, 255, 255);
+            loopingButton.HoverToolTip = "Click to enable or disable looping.";
+            loopingButton.ImageIcon = null;
+            loopingButton.ImagePadding = 7;
+            loopingButton.Location = new Point(872, 2);
+            loopingButton.Margin = new Padding(0);
+            loopingButton.Name = "loopingButton";
+            loopingButton.Size = new Size(35, 35);
+            loopingButton.TabIndex = 10;
+            loopingButton.TextColor = Color.FromArgb(100, 255, 255, 255);
+            loopingButton.UseVisualStyleBackColor = false;
+            loopingButton.Click += looping_Click;
             // 
             // mainContainer
             // 
-            this.mainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainContainer.Location = new System.Drawing.Point(0, 0);
-            this.mainContainer.Name = "mainContainer";
-            this.mainContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            mainContainer.Dock = DockStyle.Fill;
+            mainContainer.Location = new Point(0, 0);
+            mainContainer.Name = "mainContainer";
+            mainContainer.Orientation = Orientation.Horizontal;
             // 
             // mainContainer.Panel1
             // 
-            this.mainContainer.Panel1.Controls.Add(this.textBox);
+            mainContainer.Panel1.Controls.Add(textBox);
             // 
             // mainContainer.Panel2
             // 
-            this.mainContainer.Panel2.Controls.Add(this.consoleBox);
-            this.mainContainer.Size = new System.Drawing.Size(1080, 679);
-            this.mainContainer.SplitterDistance = 407;
-            this.mainContainer.TabIndex = 3;
+            mainContainer.Panel2.Controls.Add(consoleBox);
+            mainContainer.Size = new Size(1080, 679);
+            mainContainer.SplitterDistance = 407;
+            mainContainer.TabIndex = 3;
             // 
             // textBox
             // 
-            this.textBox.AutoCompleteBracketsList = new char[] {
-        '(',
-        ')',
-        '{',
-        '}',
-        '[',
-        ']',
-        '\"',
-        '\"',
-        '\'',
-        '\''};
-            this.textBox.AutoScrollMinSize = new System.Drawing.Size(27, 14);
-            this.textBox.BackBrush = null;
-            this.textBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.textBox.CharHeight = 14;
-            this.textBox.CharWidth = 8;
-            this.textBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox.ForeColor = System.Drawing.Color.White;
-            this.textBox.IndentBackColor = System.Drawing.SystemColors.WindowFrame;
-            this.textBox.IsReplaceMode = false;
-            this.textBox.LineNumberColor = System.Drawing.Color.Crimson;
-            this.textBox.Location = new System.Drawing.Point(0, 0);
-            this.textBox.Name = "textBox";
-            this.textBox.Paddings = new System.Windows.Forms.Padding(0);
-            this.textBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.textBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("textBox.ServiceColors")));
-            this.textBox.ShowFoldingLines = true;
-            this.textBox.Size = new System.Drawing.Size(1080, 407);
-            this.textBox.TabIndex = 1;
-            this.textBox.Zoom = 100;
+            textBox.AutoCompleteBracketsList = (new char[] { '(', ')', '{', '}', '[', ']', '"', '"', '\'', '\'' });
+            textBox.AutoScrollMinSize = new Size(2, 14);
+            textBox.BackBrush = null;
+            textBox.BackColor = Color.FromArgb(60, 60, 60);
+            textBox.CharHeight = 14;
+            textBox.CharWidth = 8;
+            textBox.DisabledColor = Color.FromArgb(100, 180, 180, 180);
+            textBox.Dock = DockStyle.Fill;
+            textBox.ForeColor = Color.White;
+            textBox.IndentBackColor = SystemColors.WindowFrame;
+            textBox.IsReplaceMode = false;
+            textBox.LineNumberColor = Color.Crimson;
+            textBox.Location = new Point(0, 0);
+            textBox.Name = "textBox";
+            textBox.Paddings = new Padding(0);
+            textBox.SelectionColor = Color.FromArgb(60, 0, 0, 255);
+            textBox.ServiceColors = (FastColoredTextBoxNS.ServiceColors)resources.GetObject("textBox.ServiceColors");
+            textBox.ShowFoldingLines = true;
+            textBox.Size = new Size(1080, 407);
+            textBox.TabIndex = 1;
+            textBox.Zoom = 100;
             // 
             // consoleBox
             // 
-            this.consoleBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.consoleBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.consoleBox.ForeColor = System.Drawing.Color.White;
-            this.consoleBox.Location = new System.Drawing.Point(0, 0);
-            this.consoleBox.Name = "consoleBox";
-            this.consoleBox.ReadOnly = true;
-            this.consoleBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.consoleBox.Size = new System.Drawing.Size(1080, 268);
-            this.consoleBox.TabIndex = 0;
-            this.consoleBox.Text = "";
+            consoleBox.BackColor = Color.FromArgb(40, 40, 40);
+            consoleBox.Dock = DockStyle.Fill;
+            consoleBox.ForeColor = Color.White;
+            consoleBox.Location = new Point(0, 0);
+            consoleBox.Name = "consoleBox";
+            consoleBox.ReadOnly = true;
+            consoleBox.ScrollBars = RichTextBoxScrollBars.Vertical;
+            consoleBox.Size = new Size(1080, 268);
+            consoleBox.TabIndex = 0;
+            consoleBox.Text = "";
             // 
             // ProjectPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.Controls.Add(this.baseContainer);
-            this.Name = "ProjectPage";
-            this.Size = new System.Drawing.Size(1080, 720);
-            this.baseContainer.Panel1.ResumeLayout(false);
-            this.baseContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.baseContainer)).EndInit();
-            this.baseContainer.ResumeLayout(false);
-            this.quickButtonLayout1.ResumeLayout(false);
-            this.mainContainer.Panel1.ResumeLayout(false);
-            this.mainContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).EndInit();
-            this.mainContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.textBox)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(40, 40, 40);
+            Controls.Add(baseContainer);
+            Name = "ProjectPage";
+            Size = new Size(1080, 720);
+            baseContainer.Panel1.ResumeLayout(false);
+            baseContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)baseContainer).EndInit();
+            baseContainer.ResumeLayout(false);
+            quickButtonLayout1.ResumeLayout(false);
+            mainContainer.Panel1.ResumeLayout(false);
+            mainContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)mainContainer).EndInit();
+            mainContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)textBox).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
@@ -318,5 +333,6 @@
         private Controls.CustomButton saveButton;
         private Controls.CustomButton syntaxHighlightButton;
         private Controls.CustomButton homeButton;
+        private Controls.CustomButton loopingButton;
     }
 }

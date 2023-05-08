@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZOeKiZFLxw35L8nJFVtpUmko5jadA54IqXdHdY9EryXj5A1MgjnNxyh8UgnPs/9vSiC5sKU4Pfze5YlGYBeowA==",
+  "dgSpecHash": "xEW+XDzscJ3wpF/ex52Etmab2tsszsrJyPNsuglGENwtW2lJ7Vmv+vSwThl9ppBdtPoqN9feeOurNbRUbwHNDw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\prplShell\\ScriptManager\\Purpleshell.csproj",
+  "projectFilePath": "D:\\Visual Studio Projects\\ScriptManager\\Purpleshell\\Purpleshell.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Joshua\\.nuget\\packages\\cake.powershell\\2.0.0\\cake.powershell.2.0.0.nupkg.sha512",
     "C:\\Users\\Joshua\\.nuget\\packages\\fctb\\2.16.24\\fctb.2.16.24.nupkg.sha512",
