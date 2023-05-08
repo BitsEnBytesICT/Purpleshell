@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\Purpleshell\\Purpleshell.csproj": {}
+    "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\prplShell\\ScriptManager\\Purpleshell.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\Purpleshell\\Purpleshell.csproj": {
+    "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\prplShell\\ScriptManager\\Purpleshell.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\Purpleshell\\Purpleshell.csproj",
+        "projectUniqueName": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\prplShell\\ScriptManager\\Purpleshell.csproj",
         "projectName": "Purpleshell",
-        "projectPath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\Purpleshell\\Purpleshell.csproj",
+        "projectPath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\prplShell\\ScriptManager\\Purpleshell.csproj",
         "packagesPath": "C:\\Users\\Joshua\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\Purpleshell\\obj\\",
+        "outputPath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\prplShell\\ScriptManager\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -52,10 +52,6 @@
             "FCTB": {
               "target": "Package",
               "version": "[2.16.24, )"
-            },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[13.0.3, )"
             }
           },
           "imports": [

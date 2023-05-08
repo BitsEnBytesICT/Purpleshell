@@ -180,19 +180,28 @@ namespace ShellHolder
 
         private void startScript_Click(object sender, EventArgs e) {
 
-            if (project == null)
-                return;
+            try {
 
-            if (worker.IsBusy)
-                return;
+                if (project == null)
+                    return;
+
+                if (worker.IsBusy)
+                    return;
 
 
-            string script = textBox.Text;
+                string script = textBox.Text;
 
-            consoleBox.Text = "";
-            ScriptButtonRunning(true);
+                consoleBox.Text = "";
+                ScriptButtonRunning(true);
 
-            worker.RunWorkerAsync(script);
+                reason = null;
+
+                worker.RunWorkerAsync(script);
+
+            }
+            catch (Exception ex) {
+                ProjectUtil.ExceptionMessageBox("A problem has occured with the backgroundworker dowork.", ex);
+            }
         }
 
         private void stopScriptButton_Click(object sender, EventArgs e) {
@@ -212,66 +221,87 @@ namespace ShellHolder
 
         private void Worker_DoWork(object? sender, DoWorkEventArgs e) {
 
-            if (e.Argument == null || sender == null) {
-                return;
+            try {
+                string script = e.Argument.ToString();
+                BackgroundWorker worker = sender as BackgroundWorker;
+
+                /// Create powershell runspace, to run the script in its own enviroment.
+                PowerShell runspace = PowerShell.Create();
+                runspace.AddScript(script);
+
+                /// Make an console output event handler that handles its output back on the main thread via the reportprogress backgroundworker.
+                PSDataCollection<PSObject> output = new PSDataCollection<PSObject>();
+                output.DataAdded += (sender, e) => {
+                    if (sender == null || worker == null) return;
+
+                    PSObject newRecord = ((PSDataCollection<PSObject>)sender)[e.Index];
+                    string recordString = newRecord.ToString();
+                    worker.ReportProgress(200, recordString);
+                };
+
+                /// Start the runspace and keep running until end is declared.
+                runspace.BeginInvoke<PSObject, PSObject>(null, output);
+                int i = 0;
+                while (runspace.InvocationStateInfo.State == PSInvocationState.Running) {
+
+                    /// Slow down thread to increase performance.
+                    Thread.Sleep(100);
+
+
+                    state = runspace.InvocationStateInfo.State;
+                    reason = runspace.InvocationStateInfo.Reason;
+
+
+                    if (worker == null) return;
+
+                    /// If any errors occur during runtime of runspace, report the error and stop outside shell (backgroundworker) by throwing an exception which will be caught outside of the thread.
+                    if (runspace.HadErrors) {
+                        worker.ReportProgress(400, runspace.Streams.Error);
+                        throw new InvalidOperationException();
+                    }
+
+                    /// If the user requested to cancel the worker, the do this immediatly. This will destroy the runspace and put the worker in an non use state.
+                    if (worker.CancellationPending) {
+                        e.Cancel = true;
+                        return;
+                    }
+                }
             }
+            catch (Exception ex) {
+                if (ex is InvalidOperationException) {
 
-
-            string script = e.Argument.ToString();
-            BackgroundWorker worker = sender as BackgroundWorker;
-
-            /// Create powershell runspace, to run the script in its own enviroment.
-            PowerShell runspace = PowerShell.Create();
-            runspace.AddScript(script);
-
-            /// Make an console output event handler that handles its output back on the main thread via the reportprogress backgroundworker.
-            PSDataCollection<PSObject> output = new PSDataCollection<PSObject>();
-            output.DataAdded += (sender, e) => {
-                if (sender == null || worker == null) return;
-
-                PSObject newRecord = ((PSDataCollection<PSObject>)sender)[e.Index];
-                string recordString = newRecord.ToString();
-                worker.ReportProgress(200, recordString);
-            };
-
-            /// Start the runspace and keep running until end is declared.
-            runspace.BeginInvoke<PSObject, PSObject>(null, output);
-            while (runspace.InvocationStateInfo.State == PSInvocationState.Running) {
-
-                if (worker == null) return;
-                
-                /// If any errors occur during runtime of runspace, report the error and stop outside shell (backgroundworker) by throwing an exception which will be caught outside of the thread.
-                if (runspace.HadErrors) {
-                    worker.ReportProgress(400, runspace.Streams.Error);
-                    throw new InvalidOperationException();
                 }
-
-                /// If the user requested to cancel the worker, the do this immediatly. This will destroy the runspace and put the worker in an non use state.
-                if (worker.CancellationPending) {
-                    e.Cancel = true;
-                    return;
-                }
+                else
+                    ProjectUtil.ExceptionMessageBox("A problem has occured with the backgroundworker dowork.", ex);
             }
         }
 
+        public PSInvocationState state = PSInvocationState.Running;
+        public Exception reason = null;
+
         private void Worker_ProgressChanged(object? sender, ProgressChangedEventArgs e) {
 
-            string output = e.UserState.ToString();
+            try {
+                string output = e.UserState.ToString();
 
-            if (output.Length <= 0) 
-                return;
+                if (output.Length <= 0)
+                    return;
 
-            /// If report is positive (200), log to console default.
-            if (e.ProgressPercentage == 200) {
-                AddToConsole(e.UserState.ToString(), Color.White);
-            }
-            /// If console is error handling (400) handle all the errors at once.
-            else if (e.ProgressPercentage == 400) {
-                PSDataCollection<ErrorRecord> errorStreams = e.UserState as PSDataCollection<ErrorRecord>;
-                foreach (ErrorRecord record in errorStreams) {
-                    string text = record.Exception.Message;
-                    AddToConsole(text, Color.White);
+                /// If report is positive (200), log to console default.
+                if (e.ProgressPercentage == 200) {
+                    AddToConsole(e.UserState.ToString(), Color.White);
                 }
+                /// If console is error handling (400) handle all the errors at once.
+                else if (e.ProgressPercentage == 400) {
+                    PSDataCollection<ErrorRecord> errorStreams = e.UserState as PSDataCollection<ErrorRecord>;
+                    foreach (ErrorRecord record in errorStreams) {
+                        string text = record.Exception.Message;
+                        AddToConsole(text, Color.White);
+                    }
+                }
+            }
+            catch (Exception ex) {
+                ProjectUtil.ExceptionMessageBox("A problem has occured with the backgroundworker dowork.", ex);
             }
         }
 
@@ -290,14 +320,19 @@ namespace ShellHolder
         }
 
         private void Worker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e) {
+            AddToConsole(Environment.NewLine + "Powershell state: " + state, Color.Yellow);
+
+            if (reason != null)
+                AddToConsole(reason.ToString(), Color.Yellow);
+
             if (e.Error != null) {
-                AddToConsole(Environment.NewLine + "Error occurred!", Color.Red);
+                AddToConsole("Backworker: Error occurred!", Color.Red);
             }
             else if (e.Cancelled) {
-                AddToConsole(Environment.NewLine + "Cancelled!", Color.Orange);
+                AddToConsole("Backworker: Cancelled!", Color.Orange);
             }
             else
-                AddToConsole(Environment.NewLine + "Success!", Color.LimeGreen);
+                AddToConsole("Backworker: Success!", Color.LimeGreen);
 
             ScriptButtonRunning(false);
         }

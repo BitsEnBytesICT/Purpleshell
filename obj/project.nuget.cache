@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ad9ohPfKyHanVE69dCIY59ErJxPWcVEfQbxxR76difuXroJKmd0gpEsel/R4IPfNvZt91UqR00FoKAAhP/8wHw==",
+  "dgSpecHash": "ZOeKiZFLxw35L8nJFVtpUmko5jadA54IqXdHdY9EryXj5A1MgjnNxyh8UgnPs/9vSiC5sKU4Pfze5YlGYBeowA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\Purpleshell\\Purpleshell.csproj",
+  "projectFilePath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\prplShell\\ScriptManager\\Purpleshell.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Joshua\\.nuget\\packages\\cake.powershell\\2.0.0\\cake.powershell.2.0.0.nupkg.sha512",
     "C:\\Users\\Joshua\\.nuget\\packages\\fctb\\2.16.24\\fctb.2.16.24.nupkg.sha512",
@@ -37,7 +37,7 @@
     "C:\\Users\\Joshua\\.nuget\\packages\\microsoft.wsman.management\\7.2.1\\microsoft.wsman.management.7.2.1.nupkg.sha512",
     "C:\\Users\\Joshua\\.nuget\\packages\\microsoft.wsman.runtime\\7.2.1\\microsoft.wsman.runtime.7.2.1.nupkg.sha512",
     "C:\\Users\\Joshua\\.nuget\\packages\\namotion.reflection\\2.0.3\\namotion.reflection.2.0.3.nupkg.sha512",
-    "C:\\Users\\Joshua\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Joshua\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\Joshua\\.nuget\\packages\\njsonschema\\10.5.2\\njsonschema.10.5.2.nupkg.sha512",
     "C:\\Users\\Joshua\\.nuget\\packages\\runtime.linux-arm.runtime.native.system.io.ports\\6.0.0\\runtime.linux-arm.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
     "C:\\Users\\Joshua\\.nuget\\packages\\runtime.linux-arm64.runtime.native.system.io.ports\\6.0.0\\runtime.linux-arm64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
