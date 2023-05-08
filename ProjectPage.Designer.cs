@@ -220,9 +220,7 @@
             // 
             // mainContainer
             // 
-            this.mainContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainContainer.Location = new System.Drawing.Point(0, 0);
             this.mainContainer.Name = "mainContainer";
             this.mainContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -234,8 +232,8 @@
             // mainContainer.Panel2
             // 
             this.mainContainer.Panel2.Controls.Add(this.consoleBox);
-            this.mainContainer.Size = new System.Drawing.Size(1080, 746);
-            this.mainContainer.SplitterDistance = 448;
+            this.mainContainer.Size = new System.Drawing.Size(1080, 679);
+            this.mainContainer.SplitterDistance = 407;
             this.mainContainer.TabIndex = 3;
             // 
             // textBox
@@ -258,6 +256,7 @@
             this.textBox.CharWidth = 8;
             this.textBox.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.textBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.textBox.ForeColor = System.Drawing.Color.White;
             this.textBox.IndentBackColor = System.Drawing.SystemColors.WindowFrame;
             this.textBox.IsReplaceMode = false;
@@ -268,7 +267,7 @@
             this.textBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.textBox.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("textBox.ServiceColors")));
             this.textBox.ShowFoldingLines = true;
-            this.textBox.Size = new System.Drawing.Size(1080, 448);
+            this.textBox.Size = new System.Drawing.Size(1080, 407);
             this.textBox.TabIndex = 1;
             this.textBox.Zoom = 100;
             // 
@@ -281,7 +280,7 @@
             this.consoleBox.Name = "consoleBox";
             this.consoleBox.ReadOnly = true;
             this.consoleBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.consoleBox.Size = new System.Drawing.Size(1080, 294);
+            this.consoleBox.Size = new System.Drawing.Size(1080, 268);
             this.consoleBox.TabIndex = 0;
             this.consoleBox.Text = "";
             // 

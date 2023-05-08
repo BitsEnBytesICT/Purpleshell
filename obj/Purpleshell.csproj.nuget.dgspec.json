@@ -52,10 +52,6 @@
             "FCTB": {
               "target": "Package",
               "version": "[2.16.24, )"
-            },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[13.0.3, )"
             }
           },
           "imports": [
