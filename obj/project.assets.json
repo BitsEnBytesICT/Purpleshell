@@ -6962,19 +6962,19 @@
   },
   "packageFolders": {
     "C:\\Users\\Joshua\\.nuget\\packages\\": {},
-    "D:\\Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Visual Studio Projects\\ScriptManager\\Purpleshell\\Purpleshell.csproj",
+      "projectUniqueName": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\Purpleshell\\Purpleshell.csproj",
       "projectName": "Purpleshell",
-      "projectPath": "D:\\Visual Studio Projects\\ScriptManager\\Purpleshell\\Purpleshell.csproj",
+      "projectPath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\Purpleshell\\Purpleshell.csproj",
       "packagesPath": "C:\\Users\\Joshua\\.nuget\\packages\\",
-      "outputPath": "D:\\Visual Studio Projects\\ScriptManager\\Purpleshell\\obj\\",
+      "outputPath": "C:\\Users\\Joshua\\Documents\\Projects\\Visual Studio\\Purpleshell\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "D:\\Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
         "C:\\Users\\Joshua\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7042,7 +7042,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   },
